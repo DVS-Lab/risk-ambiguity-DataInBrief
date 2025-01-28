@@ -1,13 +1,13 @@
 ## Dataset Overview
-**Dataset Name**: [Your Dataset Name]
-**Principal Investigator**: [Name]
-**Authors**: [List of Authors]
+**Dataset Name**: [A Dataset of Risky and Ambiguous Decisions Using a Novel Linked Colored Lottery Task Across Two Studies ]
+**Principal Investigator**: [David V. Smith]
+**Authors**: [James B. Wyngaarden III*, Yi Yang*, Jeffrey B. Dennison*, David V. Smith]
 
 ## Study Description
 Brief description of your study design, objectives, and methods.
 
 ## Participant Information
-* Number of participants
+* N=333
 * Age range
 * Inclusion/exclusion criteria
 * Population demographics
