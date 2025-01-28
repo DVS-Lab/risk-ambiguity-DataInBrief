@@ -4,7 +4,7 @@
 **Authors**: James B. Wyngaarden III*, Yi Yang*, Jeffrey B. Dennison*, David V. Smith
 
 ## Study Description
-Brief description of your study design, objectives, and methods.
+Decision-making under ambiguity has been linked to individual differences of clinical importance; however, analyses related to these concepts often rely on a max-min model which ignores the possible influence of individual beliefs about the underlying choice probabilities. Using a novel Linked Colored Lottery Task in two samples (N=46 in-person, N=287 online), we provide a dataset that enables researchers to explore how individual beliefs about underlying probabilities and preferences for their distributions influence ambiguous decision-making, beyond traditional max-min models.
 
 ## Participant Information
 * N=333
