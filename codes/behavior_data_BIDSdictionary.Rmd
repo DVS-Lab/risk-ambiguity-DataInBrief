@@ -184,7 +184,7 @@ for (f in 1:length(participants_exp2_list)) {
 ### load meta info
 ```{r}
 # directory
-meta_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/data"
+meta_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity-DataInBrief/data_dictionary"
 
 # from the main spreadsheet
 main_behavior_spreadsheet = read_excel(paste(meta_dir, "BehaviorMeta_Exp2.xlsx", sep = "/"))
@@ -326,7 +326,7 @@ for (f in 1:length(participants_exp1_list)) {
 ### load meta info
 ```{r}
 # directory
-meta_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/data"
+meta_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity-DataInBrief/data_dictionary"
 
 # from the main spreadsheet
 main_behavior_spreadsheet = read_excel(paste(meta_dir, "BehaviorMeta_Exp1.xlsx", sep = "/"))
