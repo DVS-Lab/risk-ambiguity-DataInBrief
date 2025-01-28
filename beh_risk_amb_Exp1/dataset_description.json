@@ -1,0 +1,16 @@
+{
+  "Name": "Making Decisions with Limited Information: Experiment 2",
+  "BIDSVersion": "1.10.0",
+  "DatasetType": "raw",
+  "License": "CC0 1.0 Universal",
+  "Authors": [
+     "James B. Wyngaarden", "Yi Yang", "Jeffrey B. Dennison", "David V. Smith" 
+  ],
+  "Acknowledgements": "We thank Vishnu (Deepu) Murty and Thoms Olino for helpful comments and discussions about the experiment and manuscript.",
+  "HowToAcknowledge": "Please cite this paper: N/A",
+  "Funding": ["National Institute of Health Grant RF1-AG067011"],
+  "EthicsApprovals": [
+    "Temple University IRB # 24452 Mechanisms of Human Decision Making and Reward Processing"
+  ]
+}
+  

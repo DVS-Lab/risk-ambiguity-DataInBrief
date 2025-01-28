@@ -1,0 +1,317 @@
+---
+title: "data_wrangle_Exp2"
+author: "Jen Yang"
+date: "2024-03-15, last modified 2024-1-20"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    hightlight: zenburn
+    toc_depth: 6
+---
+
+# note
+date created: 3-15-2024 by Jen Yang
+date last modified: 3-16-2024 by Jen Yang
+```{r clean, include=FALSE}
+# clean environment
+rm(list = ls())
+```
+
+```{r restart R session, include=FALSE, results='hide'}
+# .rs.restartR()
+```
+
+# Load libraries
+```{r libraries, message=FALSE, warning=TRUE, include=FALSE}
+library(car)
+library(plyr)
+library(foreign)
+library(pscl)
+library(boot)
+library(MASS)
+library(robust)
+library(sfsmisc)
+library(ggplot2)
+library(reshape2)
+library(ppcor)
+library(ggrepel)
+library(Hmisc)
+library(tidyverse)
+library(sandwich)
+library(ggpubr)
+library(interactions)
+library(knitr)
+library(twowaytests)
+library(ggfortify)
+library(interactions)
+library(broom)
+library(patchwork)
+library(robustbase)
+library(lmtest)
+library(modelr)
+library(Rmisc)
+# library(raincloudplots)
+library(cowplot)
+library(readr)
+library(PupillometryR)
+library(ggpp)
+library(estimatr)
+library(skedastic)
+library(ggpubr)
+library(lubridate)
+library(readxl)
+library(gridExtra)
+library(scales)
+library(rstudioapi)
+library(jsonlite)
+library(rjson)
+library(readr)
+```
+
+# load task and prolific raw data
+```{r}
+data_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/data/Exp2"
+OSF_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/dissenminate/OSF_upload/beh_risk_amb_Exp2"
+google_dir = "/Users/momocco/Library/CloudStorage/GoogleDrive-tun51150@temple.edu/.shortcut-targets-by-id/1Yd_mABZr2-erO8s2c0GuJSs36TfUycDa/Limited_Info/Experiment_2"
+
+raw_dir = paste(google_dir, "raw_data", sep = "/")
+raw2_dir = paste(google_dir, "raw_data2", sep = "/")
+
+raw_names = list.files(path = raw_dir, pattern = "decision")
+raw2_names = list.files(path = raw2_dir, pattern = "decision")
+```
+
+# put together all the raw data
+## from raw_data
+```{r}
+# create empty dataframe
+n_raw = length(raw_names)
+raw_df = data.frame()
+
+for(i in 1:n_raw) {
+  # i = 3
+  raw_df_i = read.csv(paste(raw_dir, raw_names[i], sep = "/"))
+  raw_df_i = raw_df_i %>% select(c("subID", "trial_type", "trial_index", "response"))
+  trial_type_check = str_detect(raw_df_i$trial_type, 'survey*')
+  raw_df = rbind(raw_df, raw_df_i[trial_type_check,])
+}
+
+raw_df = raw_df[raw_df$trial_index !=194,] # exclude subs that didn't finish the survey
+sub_raw_unique = unique(raw_df$subID)
+```
+
+## from raw2_data
+```{r}
+# create empty dataframe
+n_raw2 = length(raw2_names)
+raw2_df = data.frame()
+
+for(i in 1:n_raw2) {
+  # i = 3
+  raw2_df_i = read.csv(paste(raw2_dir, raw2_names[i], sep = "/"))
+  raw2_df_i = raw2_df_i %>% select(c("subID", "trial_type", "trial_index", "response"))
+  trial_type_check = str_detect(raw2_df_i$trial_type, 'survey*')
+  raw2_df = rbind(raw2_df, raw2_df_i[trial_type_check,])
+}
+
+raw2_df = raw2_df[raw2_df$trial_index !=194,]
+sub_raw2_unique = unique(raw2_df$subID)
+```
+
+# pull target subs' data
+```{r}
+# find common subs
+sub_raw_all = intersect(sub_raw_unique, sub_raw2_unique)
+
+# sub_raw_all = unique(sub_df$sub)
+n_sub = length(sub_raw_all)
+# select rows with subID in select subs
+raw_df_all = raw2_df[raw2_df$subID %in% sub_raw_all,] %>% distinct()
+nrow(raw_df_all)
+```
+
+# extract data for each sub
+```{r}
+var_BIDS_names = c("subID", "age", "sex", "sexOther", "race", "raceOther", "education", "Zip1", "Zip5", 
+                           'SFQ1','SFQ2','SFQ3','SFQ4','SFQ5','SFQ6','SFQ7',
+                           'FEVS_1','FEVS_2','FEVS_3','FEVS_4','FEVS_5','FEVS_6','FEVS_7','FEVS_8','FEVS_9',
+                           'SUSD1','SUSD2','SUSD3','SUSD4','SUSD5','SUSD6','SUSD7','SUSD8','SUSD9','SUSD10','SUSD11','SUSD12','SUSD13','SUSD14',
+                           'AADIS1','AADIS2','AADIS3','AADIS4','AADIS5','AADIS6','AADIS7','AADIS8','AADIS9','AADIS10','AADIS11','AADIS12',
+                           'AQ1','AQ2','AQ3','AQ4','AQ5','AQ6','AQ7','AQ8','AQ9','AQ10',
+                           'AQ11','AQ12','AQ13','AQ14','AQ15','AQ16','AQ17','AQ18','AQ19','AQ20',
+                           'AQ21','AQ22','AQ23','AQ24','AQ25','AQ26','AQ27','AQ28','AQ29','AQ30',
+                           'AQ31','AQ32','AQ33','AQ34','AQ35','AQ36','AQ37','AQ38','AQ39','AQ40',
+                           'AQ41','AQ42','AQ43','AQ44','AQ45','AQ46','AQ47','AQ48','AQ49','AQ50',
+                           'USIDep1','USIDep2','USIDep3','USIDep4','USIDep5','USIDep6','USIDep7','USIDep8')
+data_BIDS_df = data.frame(matrix(ncol = length(var_BIDS_names), nrow = n_sub))
+colnames(data_BIDS_df) = var_BIDS_names
+
+for (j in 1:n_sub) { # subject j
+  # j = 71
+  # print(j)
+  subID_j = sub_raw_all[j]
+  # print(subID_j)
+  # print(c(j,subID_j))
+  data_BIDS_df$subID[j] = subID_j
+  if (subID_j %in% raw_df$subID == TRUE) {
+    raw_df_j = raw_df[raw_df$subID == subID_j, ]
+    n_raw_df_j = nrow(raw_df_j)
+    
+    for (k in 1:n_raw_df_j) { # measure k of subject j
+      # k = 1
+      # print(k)
+      # split strings to find each variable name and response
+      raw_df_jk = raw_df_j[k, "response"]
+      if (is.na(raw_df_jk) == FALSE) {
+        raw_df_jk = raw_df_jk %>% str_replace_all("\\{|\\}", "") %>% str_split(",\\\"|\\\"\\:", simplify = TRUE) 
+        n_col_jk = ncol(raw_df_jk)
+        trial_index_jk = raw_df_j$trial_index[k]
+        # dealing with the special case of trial_index 949 of demographic info
+        if(sum(trial_index_jk %in% c(949,955)) != 0) {
+          raw_df_jk = raw_df_jk[1, 3:n_col_jk]
+          n_col_jk = length(raw_df_jk)
+        } else {
+          raw_df_jk = raw_df_jk[1, 1:n_col_jk]
+        }
+        
+        for (m in 1:(n_col_jk/2)) { # item m of measure k of subject j
+          # m = 1 
+          var_name_m = str_replace_all(raw_df_jk[2*m-1], "\"", "")
+          var_response_m = str_replace_all(raw_df_jk[2*m], "\\\"", "")
+          if(is_empty(var_response_m) != 1) {
+            data_BIDS_df[j,var_name_m] = var_response_m
+          }
+        }
+      }
+    }
+  } else {
+    # print(paste(j, "cannot find", subID_j, "raw data", sep = " "))
+    print(subID_j)
+  }
+}
+```
+
+# recode non-numeric responses
+```{r}
+data_BIDS_df_recode <- data_BIDS_df %>%
+  mutate(sex = recode(sex, "Male" = "1", "Female" = "2", "Other" = "3"),
+         race = recode(race, "Native American or Alaskan Native" = "1", "Asian / Pacific Islander" = "2",
+                       "Black or African American" = "3", " Hispanic" = "4", "White / Caucasian" = "5", 
+                       "Multiple ethnicity/ Other (please specify)" = "6"),
+         education = recode(education, "No schooling completed" = "1", "Some high school, no diploma" = "2", 
+                            "High school graduate, diploma or the equivalent" = "3", 
+                            "Some college credit, no degree" = "4", "Associates Degree" = "5",
+                            "Bachelor's Degree" = "7", "Master's Degree" = "7", "Doctoral Degree" = "8"),
+         SFQ1 = recode(SFQ1, "Yes" = "1", "No" = "2"),
+         SFQ4 = recode(SFQ4, "An impersonator (fake government, business, love interest, grandchild, etc)" = "1", 
+                       "Job, investment, or money making opportunity" = "2", "Phone, internet, TV service" = "3", 
+                       "Health (weight loss, other treatments)" = "4", "Online shopping" ="5", 
+                       "Sweepstakes, prize, lottery" = "6", "Auto sale or repair" = "7", 
+                       "Credit, debt, or loan" = "8", "Other not described" = "9"),
+         # across(AQ1:AQ50, ~recode(., "0"="1", "1"="2", "2"="3", "3"="4", "4"="5")),
+         across(SUSD1:SUSD14, ~recode(., "Never or hardly ever" = "1", "Sometimes" = "2", 
+                                      "Often" = "3", "Very often or almost constantly" = "4")),
+         across(FEVS_1:FEVS_9, ~recode(., "Not at all worried" = "1", "Somewhat worried" = "2", "Very Worried" = "3",
+                                       "Satisfied" = "1", "Neither" = "2", "Dissatisfied" = "3", 
+                                       "Confident" = "1", "Unsure" = "2", "Not Confident" = "3",
+                                       "Never" = "1", "Sometimes" = "2", "Often" = "3",
+                                       "None of the time" = "1", "Some of the time" = "2", "A lot of the time" = "3",
+                                       "Never or rarely" = "1", 
+                                       "Most if the time" = "3")),
+         across(AADIS1:AADIS12, ~recode(., "Never Used" = "1", "Once or Twice" = "2", 
+                                        "Several Times a Month" = "3", "Weekends Only" = "4", 
+                                        "Several Times a Week" = "5", "Daily" = "6", "Several Times Daily" = "7")),
+         across(USIDep1:USIDep8, ~recode(., "Yes" = "1", "No" = "2", "I am more than 65 years old" = "3")))
+
+write.csv(data_BIDS_df_recode, paste(data_dir, "data_Exp2_coded_all.csv", sep = "/"))
+write.csv(data_BIDS_df, paste(data_dir, "data_Exp2_NOTcoded_all.csv", sep = "/"))
+```
+
+# find participants from prolific
+```{r}
+pro1_name = "prolific_export_645429988b4933c945101127(1).csv"
+pro3_name = "prolific_export_645429988b4933c945101127(3).csv"
+
+pro1_df = read.csv(paste(google_dir, pro1_name, sep = "/"), header = TRUE) %>% 
+  mutate(subID = paste0("sub-", .$Participant.id))
+pro3_df = read.csv(paste(google_dir, pro3_name, sep = "/"), header = TRUE) %>% 
+  mutate(subID = paste0("sub-", .$Participant.id))
+
+pro1_sublist = unique(pro1_df$subID)
+pro3_sublist = unique(pro3_df$subID)
+pro_all = intersect(pro1_sublist, pro3_sublist)
+
+# check if common subs are in both lists
+sum(pro_all %in% pro1_sublist) <= length(pro1_sublist)
+sum(pro_all %in% pro3_sublist) <= length(pro3_sublist)
+sum(pro_all %in% pro1_sublist) == sum(pro_all %in% pro3_sublist)
+```
+
+# finalize participant list
+find common subs in behavior and prolific and jeff's list
+```{r}
+## filter based on behavior data and prolific info
+sub_beh_pro_common = intersect(pro_all, sub_raw_all)
+pro_common = pro1_df[pro1_df$subID %in% sub_beh_pro_common & pro1_df$Status == "APPROVED",] # # 289, prolific and events
+
+## filter based on jeff's list
+jeff_list = read.csv(paste("/Users/momocco/Documents/GitHub/risk-ambiguity/data/Exp2", "participant_list_jeff.csv", sep = "/"))
+
+final_common = intersect(pro_common$subID, jeff_list$subID)
+participant_final = final_common # 287, based on jeff's list, prolific status, and jeff's events data
+
+not_in_final <- pro_common$subID[!(pro_common$subID %in% participant_final)]
+print(not_in_final) # doesn't have bids in jeff's folder. also not in jeff's list
+## "sub-62fff3a366f10202cc095b1e" "sub-640cd020656929eeb856a443"
+```
+
+# finalize dataset
+```{r}
+data_BIDS_coded_final_df = data_BIDS_df_recode[data_BIDS_df_recode$subID %in% participant_final, ]
+write.csv(data_BIDS_coded_final_df, paste(data_dir, "data_Exp2_coded_all_final.csv", sep = "/"))
+
+data_BIDS_final_df = data_BIDS_df[data_BIDS_df$subID %in% participant_final, ]
+
+data_BIDS_final_df = data_BIDS_final_df %>% mutate(participant_id = subID)
+
+write.csv(data_BIDS_final_df, paste(data_dir, "data_Exp2_NOTcoded_all_final.csv", sep = "/"))
+```
+
+# save phenotype tsv
+```{r}
+participants_tsv = data_BIDS_final_df %>% 
+  select(participant_id, age, sex, sexOther, race, raceOther) %>% 
+    mutate(sex = case_when(sex == "Female" ~ "F",
+                         sex == "Male" ~ "M", 
+                         sex == "Other" ~ "n/a"))
+participants_tsv$sexOther = ifelse(participants_tsv$sex == "M" | participants_tsv$sex == "F", NA, participants_tsv$sexOther)
+write_tsv(participants_tsv, file = paste(OSF_dir, "participants.tsv", sep = "/"))
+
+demographics_tsv = data_BIDS_final_df %>% select(participant_id, age, sex, sexOther, race, raceOther, education, Zip1, Zip5)
+write_tsv(demographics_tsv, file = paste(OSF_dir, "phenotype","demographics.tsv", sep = "/"))
+
+AQ_tsv = data_BIDS_final_df %>% select(participant_id, AQ1:AQ50)
+write_tsv(AQ_tsv, file = paste(OSF_dir, "phenotype", "autisum_quotient.tsv", sep = "/"))
+
+FEVS_tsv = data_BIDS_final_df %>% select(participant_id, FEVS_1:FEVS_9)
+write_tsv(FEVS_tsv, file = paste(OSF_dir, "phenotype", "financial_exploitation_vulnerbility_scale.tsv", sep = "/"))
+
+USIDep_tsv = data_BIDS_final_df %>% select(participant_id, USIDep1:USIDep8)
+write_tsv(USIDep_tsv, file = paste(OSF_dir, "phenotype", "US_index_SES_deprivation.tsv", sep = "/"))
+
+SUSD_tsv = data_BIDS_final_df %>% select(participant_id, SUSD1:SUSD14)
+write_tsv(SUSD_tsv, file = paste(OSF_dir, "phenotype", "seven_up_seven_down.tsv", sep = "/"))
+
+AADIS_tsv = data_BIDS_final_df %>% select(participant_id, AADIS1:AADIS12)
+write_tsv(AADIS_tsv, file = paste(OSF_dir, "phenotype", "adolescent_alchohol_drug_involvement_scale.tsv", sep = "/"))
+
+SFQ_tsv = data_BIDS_final_df %>% select(participant_id, SFQ1:SFQ7)
+write_tsv(SFQ_tsv, file = paste(OSF_dir, "phenotype", "subjective_fraud_questionnaire.tsv", sep = "/"))
+```
+
+
+

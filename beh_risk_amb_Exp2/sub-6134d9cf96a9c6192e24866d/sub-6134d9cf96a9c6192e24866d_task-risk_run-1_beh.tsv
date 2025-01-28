@@ -1,0 +1,61 @@
+Blocktype	tnum	rt	color	winprob	select	dist	side	response
+Risk	0	NA	blue	0.5	none	narrow	[""left""]	
+Risk	1	1439	blue	0.5	right	narrow	[""left""]	j
+Risk	2	1797	blue	0.5	right	narrow	[""left""]	j
+Risk	3	829	blue	0.5	right	narrow	[""left""]	j
+Risk	4	1328	blue	0.7	right	narrow	[""right""]	j
+Risk	5	1351	blue	0.4	right	narrow	[""left""]	j
+Risk	6	1771	blue	0.6	right	narrow	[""right""]	j
+Risk	7	1268	blue	0.5	right	narrow	[""left""]	j
+Risk	8	903	blue	0.5	right	narrow	[""left""]	j
+Risk	9	1058	blue	0.4	left	narrow	[""right""]	f
+Risk	10	752	blue	0.3	right	narrow	[""left""]	j
+Risk	11	1704	blue	0.6	left	narrow	[""left""]	f
+Risk	12	945	blue	0.5	left	narrow	[""right""]	f
+Risk	13	1067	blue	0.6	left	narrow	[""right""]	f
+Risk	14	1110	blue	0.2	left	narrow	[""right""]	f
+Risk	15	1488	blue	0.5	left	narrow	[""right""]	f
+Risk	16	638	blue	0.5	left	narrow	[""right""]	f
+Risk	17	942	blue	0.4	left	narrow	[""right""]	f
+Risk	18	859	blue	0.3	right	narrow	[""left""]	j
+Risk	19	1324	blue	0.5	left	narrow	[""right""]	f
+Risk	20	2176	red	1	right	wide	[""right""]	j
+Risk	21	2068	red	0.3	left	wide	[""right""]	f
+Risk	22	1122	red	0.1	right	wide	[""left""]	j
+Risk	23	1194	red	1	right	wide	[""right""]	j
+Risk	24	1018	red	0.1	right	wide	[""left""]	j
+Risk	25	750	red	0.7	right	wide	[""right""]	j
+Risk	26	752	red	0.8	left	wide	[""left""]	f
+Risk	27	657	red	0.8	right	wide	[""right""]	j
+Risk	28	722	red	0.2	left	wide	[""right""]	f
+Risk	29	825	red	0	left	wide	[""right""]	f
+Risk	30	835	red	0.9	left	wide	[""left""]	f
+Risk	31	1318	red	0.9	left	wide	[""left""]	f
+Risk	32	NA	red	0	none	wide	[""right""]	
+Risk	33	NA	red	1	none	wide	[""left""]	
+Risk	34	2407	red	0	right	wide	[""left""]	j
+Risk	35	NA	red	0.9	none	wide	[""left""]	
+Risk	36	1107	red	0.1	left	wide	[""right""]	f
+Risk	37	692	red	0.2	right	wide	[""left""]	j
+Risk	38	626	red	0	right	wide	[""left""]	j
+Risk	39	1418	red	0	left	wide	[""right""]	f
+Risk	40	NA	green	0.7	none	skew	[""left""]	
+Risk	41	NA	green	0.7	none	skew	[""right""]	
+Risk	42	3096	green	0.6000000000000001	left	skew	[""left""]	f
+Risk	43	760	green	0.8	right	skew	[""right""]	j
+Risk	44	1033	green	0.7	left	skew	[""left""]	f
+Risk	45	1155	green	0.7	left	skew	[""left""]	f
+Risk	46	1704	green	0.5	left	skew	[""left""]	f
+Risk	47	979	green	0.8	right	skew	[""right""]	j
+Risk	48	NA	green	0.7	none	skew	[""left""]	
+Risk	49	1995	green	0.6000000000000001	right	skew	[""right""]	j
+Risk	50	391	green	0.7	right	skew	[""right""]	j
+Risk	51	435	green	0.8999999999999999	right	skew	[""right""]	j
+Risk	52	1104	green	0.7	left	skew	[""left""]	f
+Risk	53	466	green	0.7	left	skew	[""left""]	f
+Risk	54	1026	green	0.7	right	skew	[""right""]	j
+Risk	55	897	green	0.7	left	skew	[""left""]	f
+Risk	56	544	green	0.6000000000000001	left	skew	[""left""]	f
+Risk	57	419	green	0.5	left	skew	[""left""]	f
+Risk	58	618	green	0.4	right	skew	[""right""]	j
+Risk	59	576	green	0.8	right	skew	[""right""]	j

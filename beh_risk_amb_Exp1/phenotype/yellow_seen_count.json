@@ -1,0 +1,52 @@
+[
+  {
+    "MeasurementToolMetadata": {
+      "Description": "In part 2 you will have one more lottery that you haven’t seen before, Yellow. Use your gut to tell how often you think the Yellow lottery would have had the given chances of winning, if you had seen it in Part 1.",
+      "TermURL": "NA"
+    },
+	"percent_0": {
+      "Description": "0% chance of winning",
+      "Unit": "times"
+    },
+    "percent_10": {
+      "Description": "10% chance of winning",
+      "Unit": "times"
+    },
+    "percent_20": {
+      "Description": "20% chance of winning",
+      "Unit": "times"
+    },
+	"percent_30": {
+      "Description": "30% chance of winning",
+      "Unit": "times"
+    },
+	"percent_40": {
+      "Description": "40% chance of winning",
+      "Unit": "times"
+    },
+	"percent_50": {
+      "Description": "50% chance of winning",
+      "Unit": "times"
+    },
+	"percent_60": {
+      "Description": "60% chance of winning",
+      "Unit": "times"
+    },
+	"percent_70": {
+      "Description": "70% chance of winning",
+      "Unit": "times"
+    },
+	"percent_80": {
+      "Description": "80% chance of winning",
+      "Unit": "times"
+    },
+	"percent_90": {
+      "Description": "90% chance of winning",
+      "Unit": "times"
+    },
+	"percent_100": {
+      "Description": "100% chance of winning",
+      "Unit": "times"
+    }
+  }
+]

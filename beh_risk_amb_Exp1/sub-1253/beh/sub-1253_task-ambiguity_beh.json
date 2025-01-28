@@ -1,0 +1,53 @@
+
+  {
+    "MeasurementToolMetadata": {
+      "Description": "Hidden Colored Lottery Task"
+    },
+    "Risk_per": {
+      "Description": "chance of winning the lottery",
+      "Unit": "1"
+    },
+    "Money": {
+      "Description": "size of reward if win",
+      "Unit": "US dollar"
+    },
+    "Color": {
+      "Description": "color of lottery stimulus",
+      "Levels": {
+        "red": "red",
+        "green": "green",
+        "blue": "blue"
+      }
+    },
+    "Amb": {
+      "Description": "level of ambiguity (percentage of lottery info not shown)",
+      "Unit": "percentage"
+    },
+    "RiskisLeft": {
+      "Description": "whether the risky choice is displayed on the left, 1 = left, 0 = right",
+      "Levels": {
+        "1": "left",
+        "0": "right"
+      }
+    },
+    "response": {
+      "Description": "f or j; which button (side) the participant pushed",
+      "Levels": {
+        "f": "left",
+        "j": "right"
+      }
+    },
+    "RT": {
+      "Description": "reaction time (s); blank values mean no response",
+      "Unit": "s"
+    },
+    "dist": {
+      "Description": "shape of distribution, should match the color (narrow green, wide red, skew blue)",
+      "Levels": {
+        "wide": "wide",
+        "narrow": "narrow",
+        "skewed": "skewed"
+      }
+    }
+  }
+

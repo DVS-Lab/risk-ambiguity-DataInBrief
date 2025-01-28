@@ -1,0 +1,65 @@
+[
+  {
+    "MeasurementToolMetadata": {
+      "Description": "United States Index of Socioeconomic Deprivation",
+      "TermURL": "https://doi.org/10.1016/j.pmip.2022.100091"
+    },
+    "USIDep1": {
+      "Description": "In the last 12 months have you personally been forced to buy cheaper food so that you could pay for other things you needed?",
+      "Levels": {
+        "1": "Yes",
+        "2": "No"
+      }
+    },
+    "USIDep2": {
+      "Description": "In the last 12 months did you yourself receive payments from any of these benefit programs: Temporary Assistance to Needy Families (TANF), Earned Income Tax Credit (EITC), or a Housing Assistance program, (e.g.,Section 8 Housing voucher)?",
+      "Levels": {
+        "1": "Yes",
+        "2": "No"
+      }
+    },
+    "USIDep3": {
+      "Description": "In the last 12 months have you personally put up with feeling cold in order to save on heating costs?",
+      "Levels": {
+        "1": "Yes",
+        "2": "No"
+      }
+    },
+    "USIDep4": {
+      "Description": "In the last 12 months have you personally made use of food banks or government food programs because you did not have enough money for food? For example, did you get benefits from the Supplemental Nutrition Assistance Program (SNAP/EBT/Food stamps), or the Women, Infants and Children (WIC) food programs?",
+      "Levels": {
+        "1": "Yes",
+        "2": "No"
+      }
+    },
+    "USIDep5": {
+      "Description": "In the last 12 months have you personally continued wearing shoes with holes because you could not afford replacement?",
+      "Levels": {
+        "1": "Yes",
+        "2": "No"
+      }
+    },
+    "USIDep6": {
+      "Description": "In the last 12 months have you personally gone without fresh fruit and vegetables, often, so that you could pay for other things you needed?",
+      "Levels": {
+        "1": "Yes",
+        "2": "No"
+      }
+    },
+    "USIDep7": {
+      "Description": "In the last 12 months have you personally received help in the form of clothes or money from a community organization (like a religious group or the Salvation Army)?",
+      "Levels": {
+        "1": "Yes",
+        "2": "No"
+      }
+    },
+    "USIDep8": {
+      "Description": "If you are less than 65 years old: In the last 12 months, have you been out of paid work at any time for more than one month?",
+      "Levels": {
+        "1": "Yes",
+        "2": "No",
+        "3": "I am more than 65 years old"
+      }
+    }
+  }
+]

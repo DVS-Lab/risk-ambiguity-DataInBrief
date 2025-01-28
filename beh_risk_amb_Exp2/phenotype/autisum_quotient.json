@@ -1,0 +1,508 @@
+[
+  {
+    "MeasurementToolMetadata": {
+      "Description": "Autism Quotient",
+      "TermURL": "https://doi.org/10.1023/A:1005653411471"
+    },
+    "AQ1": {
+      "Description": "I prefer to do things with others rather than on my own.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ2": {
+      "Description": "I prefer to do things the same way over and over again.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ3": {
+      "Description": "If I try to imagine something, I find it very easy to create a picture in my mind.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ4": {
+      "Description": "I frequently get so strongly absorbed in one thing that I lose sight of other things.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ5": {
+      "Description": "I often notice small sounds when others do not.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ6": {
+      "Description": "I usually notice car number plates or similar strings of information.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ7": {
+      "Description": "Other people frequently tell me that what I've said is impolite, even though I think it is polite.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ8": {
+      "Description": "When I'm reading a story, I can easily imagine what the characters might look like.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ9": {
+      "Description": "I am fascinated by dates.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ10": {
+      "Description": "In a social group, I can easily keep track of several different people's conversations.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ11": {
+      "Description": "I find social situations easy.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ12": {
+      "Description": "I tend to notice details that others do not.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ13": {
+      "Description": "I would rather go to a library than to a party.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ14": {
+      "Description": "I find making up stories easy.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ15": {
+      "Description": "I find myself drawn more strongly to people than to things.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ16": {
+      "Description": "I tend to have very strong interests, which I get upset about if I can't pursue.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ17": {
+      "Description": "I enjoy social chitchat.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ18": {
+      "Description": "When I talk, it isn't always easy for others to get a word in edgewise.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ19": {
+      "Description": "I am fascinated by numbers.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ20": {
+      "Description": "When I'm reading a story, I find it difficult to work out the characters' intentions.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ21": {
+      "Description": "I don't particularly enjoy reading fiction.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ22": {
+      "Description": "I find it hard to make new friends.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ23": {
+      "Description": "I notice patterns in things all the time.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ24": {
+      "Description": "I would rather go to the theater than to a museum.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ25": {
+      "Description": "It does not upset me if my daily routine is disturbed.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ26": {
+      "Description": "I frequently find that I don't know how to keep a conversation going.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ27": {
+      "Description": "I find it easy to 'read between the lines' when someone is talking to me.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ28": {
+      "Description": "I usually concentrate more on the whole picture, rather than on the small details.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ29": {
+      "Description": "I am not very good at remembering phone numbers.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ30": {
+      "Description": "I don't usually notice small changes in a situation or a person's appearance.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ31": {
+      "Description": "I know how to tell if someone listening to me is getting bored.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ32": {
+      "Description": "I find it easy to do more than one thing at once.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ33": {
+      "Description": "When I talk on the phone, I'm not sure when it's my turn to speak.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ34": {
+      "Description": "I enjoy doing things spontaneously.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ35": {
+      "Description": "I enjoy doing things alone.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ36": {
+      "Description": "I find it easy to work out what someone is thinking or feeling just by looking at their face.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ37": {
+      "Description": "If there is an interruption, I can switch back to what I was doing very quickly.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ38": {
+      "Description": "I am good at social chitchat.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ39": {
+      "Description": "People often tell me that I keep going on and on about the same thing.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ40": {
+      "Description": "When I was young, I used to enjoy playing games involving pretending with other children.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ41": {
+      "Description": "I like to collect information about categories of things (e.g., types of cars, birds, trains, plants).,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ42": {
+      "Description": "I find it difficult to imagine what it would be like to be someone else.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ43": {
+      "Description": "I like to carefully plan any activities I participate in.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ44": {
+      "Description": "I enjoy social occasions.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ45": {
+      "Description": "I find it difficult to work out people's intentions.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ46": {
+      "Description": "New situations make me anxious.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ47": {
+      "Description": "I enjoy meeting new people.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ48": {
+      "Description": "I am a good diplomat.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ49": {
+      "Description": "I am not very good at remembering people's date of birth.,",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    },
+    "AQ50": {
+      "Description": "I find it very easy to play games with children that involve pretending.",
+      "Levels": {
+        "0": "Strongly Disagree",
+        "1": "Disagree",
+        "2": "Neutral",
+        "3": "Agree",
+        "4": "Strongly Agree"
+      }
+    }
+  }
+]

@@ -1,0 +1,223 @@
+---
+title: "survey_data_BIDSdictionary"
+author: "Jen Yang"
+date: "created on 2023-09-25, last modified on 2025-1-27"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    hightlight: zenburn
+    toc_depth: 6
+---
+
+```{r clean, include=FALSE}
+# clean environment
+rm(list = ls())
+```
+
+```{r restart R session, include=FALSE, results='hide'}
+# .rs.restartR()
+```
+
+# Load libraries
+```{r libraries, message=FALSE, warning=TRUE, include=FALSE}
+library(car)
+library(plyr)
+library(foreign)
+library(pscl)
+library(boot)
+library(MASS)
+library(robust)
+library(sfsmisc)
+library(ggplot2)
+library(reshape2)
+library(ppcor)
+library(ggrepel)
+library(Hmisc)
+library(tidyverse)
+library(sandwich)
+library(ggpubr)
+library(interactions)
+library(knitr)
+library(twowaytests)
+library(ggfortify)
+library(interactions)
+library(broom)
+library(patchwork)
+library(robustbase)
+library(lmtest)
+library(modelr)
+library(Rmisc)
+# library(raincloudplots)
+library(cowplot)
+library(readr)
+library(PupillometryR)
+library(ggpp)
+library(estimatr)
+library(skedastic)
+library(ggpubr)
+library(lubridate)
+library(readxl)
+library(gridExtra)
+library(scales)
+library(rstudioapi)
+
+library(jsonlite)
+library(rjson)
+library(readr)
+```
+
+# knit global setup
+```{r}
+knitr::opts_chunk$set(cache = FALSE)
+```
+
+# load BIDS generator function
+```{r}
+source("BIDS_scale_df_fun2.R", local = knitr::knit_global())
+```
+
+# create global dataframe to save items
+```{r}
+items_BIDS_keep.env <- new.env()
+```
+
+# questionnaire info files
+```{r}
+# directory
+questionnaire_info_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/data"
+
+# from the main spreadsheet
+main_survey_spreadsheet = read_excel(paste(questionnaire_info_dir, "ScaleMeta_Exp2.xlsx", sep = "/"))
+
+# directly from session project RedCap
+Full_dictionary = read.csv(paste(questionnaire_info_dir, "ScaleDict_Exp2.csv", sep = "/"))
+
+# from the scoring spreadsheet
+Scoring_dictionary = read_excel(paste(questionnaire_info_dir,"ScoringAcronymMap_Exp2.xlsx", sep = "/"))
+
+# phenotype json output dir
+OSF_exp2_pheno_dir = "/Users/momocco/Documents/GitHub/risk-ambiguity/dissenminate/OSF_upload/beh_risk_amb_Exp2/phenotype"
+
+```
+
+# create empty dataframe to collect acronyms and scale item names in REDCap
+```{r}
+Acronym_RedCap = data.frame(matrix(ncol = 3, nrow = 0))
+colnames(Acronym_RedCap) = c("Acronym", "Questionbnaire","N_item")
+```
+
+# generate json for each scale/questionnaire
+## SFQ
+```{r}
+scale_acronym = "SFQ"
+BIDS_pheno = BIDS_scale_df_fun2(scale_acronym, main_survey_spreadsheet,
+                          Full_dictionary, 
+                          Scoring_dictionary)
+# BIDS_pheno_NODS[[1]]
+rnum_current = nrow(Acronym_RedCap)+1
+Acronym_RedCap[rnum_current, "Acronym"] = scale_acronym
+Acronym_RedCap[rnum_current, "RedCap"] = paste(BIDS_pheno[[4]]$REDCap_name, collapse = ",")
+Acronym_RedCap[rnum_current, "N_item"] = BIDS_pheno[[3]]
+
+BIDS_pheno[[2]]
+```
+
+## AQ
+```{r}
+scale_acronym = "AQ"
+BIDS_pheno = BIDS_scale_df_fun2(scale_acronym, main_survey_spreadsheet,
+                          Full_dictionary, 
+                          Scoring_dictionary)
+# BIDS_pheno_NODS[[1]]
+rnum_current = nrow(Acronym_RedCap)+1
+Acronym_RedCap[rnum_current, "Acronym"] = scale_acronym
+Acronym_RedCap[rnum_current, "RedCap"] = paste(BIDS_pheno[[4]]$REDCap_name, collapse = ",")
+Acronym_RedCap[rnum_current, "N_item"] = BIDS_pheno[[3]]
+
+BIDS_pheno[[2]]
+```
+
+## FEVS
+```{r}
+scale_acronym = "FEVS"
+BIDS_pheno = BIDS_scale_df_fun2(scale_acronym, main_survey_spreadsheet,
+                          Full_dictionary, 
+                          Scoring_dictionary)
+# BIDS_pheno_NODS[[1]]
+rnum_current = nrow(Acronym_RedCap)+1
+Acronym_RedCap[rnum_current, "Acronym"] = scale_acronym
+Acronym_RedCap[rnum_current, "RedCap"] = paste(BIDS_pheno[[4]]$REDCap_name, collapse = ",")
+Acronym_RedCap[rnum_current, "N_item"] = BIDS_pheno[[3]]
+
+BIDS_pheno[[2]]
+```
+
+## USIDep
+```{r}
+scale_acronym = "USIDep"
+BIDS_pheno = BIDS_scale_df_fun2(scale_acronym, main_survey_spreadsheet,
+                          Full_dictionary, 
+                          Scoring_dictionary)
+# BIDS_pheno_NODS[[1]]
+rnum_current = nrow(Acronym_RedCap)+1
+Acronym_RedCap[rnum_current, "Acronym"] = scale_acronym
+Acronym_RedCap[rnum_current, "RedCap"] = paste(BIDS_pheno[[4]]$REDCap_name, collapse = ",")
+Acronym_RedCap[rnum_current, "N_item"] = BIDS_pheno[[3]]
+
+BIDS_pheno[[2]]
+```
+
+## SUSD
+```{r}
+scale_acronym = "SUSD"
+BIDS_pheno = BIDS_scale_df_fun2(scale_acronym, main_survey_spreadsheet,
+                          Full_dictionary, 
+                          Scoring_dictionary)
+# BIDS_pheno_NODS[[1]]
+rnum_current = nrow(Acronym_RedCap)+1
+Acronym_RedCap[rnum_current, "Acronym"] = scale_acronym
+Acronym_RedCap[rnum_current, "RedCap"] = paste(BIDS_pheno[[4]]$REDCap_name, collapse = ",")
+Acronym_RedCap[rnum_current, "N_item"] = BIDS_pheno[[3]]
+
+BIDS_pheno[[2]]
+```
+
+## AADIS
+```{r}
+scale_acronym = "AADIS"
+BIDS_pheno = BIDS_scale_df_fun2(scale_acronym, main_survey_spreadsheet,
+                          Full_dictionary, 
+                          Scoring_dictionary)
+# BIDS_pheno_NODS[[1]]
+rnum_current = nrow(Acronym_RedCap)+1
+Acronym_RedCap[rnum_current, "Acronym"] = scale_acronym
+Acronym_RedCap[rnum_current, "RedCap"] = paste(BIDS_pheno[[4]]$REDCap_name, collapse = ",")
+Acronym_RedCap[rnum_current, "N_item"] = BIDS_pheno[[3]]
+
+BIDS_pheno[[2]]
+```
+
+## Demographics
+```{r}
+scale_acronym = "DEMO"
+BIDS_pheno = BIDS_scale_df_fun2(scale_acronym, main_survey_spreadsheet,
+                                Full_dictionary, 
+                                Scoring_dictionary)
+# BIDS_pheno_MSPSS[[1]]
+rnum_current = nrow(Acronym_RedCap)+1
+Acronym_RedCap[rnum_current, "Acronym"] = scale_acronym
+Acronym_RedCap[rnum_current, "RedCap"] = paste(BIDS_pheno[[4]]$REDCap_name, collapse = ",")
+Acronym_RedCap[rnum_current, "N_item"] = BIDS_pheno[[3]]
+
+BIDS_pheno[[2]]
+```
+
+# save the dataframe of the Acronym_RedCap map as a csv file
+```{r}
+# json_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/dissenminate/Experiment-2/phenotype"
+# write.csv(Acronym_RedCap, "Acronym_RedCap.csv", row.names=FALSE)
+```

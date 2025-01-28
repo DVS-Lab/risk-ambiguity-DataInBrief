@@ -1,0 +1,52 @@
+[
+  {
+    "MeasurementToolMetadata": {
+      "Description": "write how many times you saw a blue color lottery with the given chance of winning",
+      "TermURL": "NA"
+    },
+	"percent_0": {
+      "Description": "0% chance of winning",
+      "Unit": "times"
+    },
+    "percent_10": {
+      "Description": "10% chance of winning",
+      "Unit": "times"
+    },
+    "percent_20": {
+      "Description": "20% chance of winning",
+      "Unit": "times"
+    },
+	"percent_30": {
+      "Description": "30% chance of winning",
+      "Unit": "times"
+    },
+	"percent_40": {
+      "Description": "40% chance of winning",
+      "Unit": "times"
+    },
+	"percent_50": {
+      "Description": "50% chance of winning",
+      "Unit": "times"
+    },
+	"percent_60": {
+      "Description": "60% chance of winning",
+      "Unit": "times"
+    },
+	"percent_70": {
+      "Description": "70% chance of winning",
+      "Unit": "times"
+    },
+	"percent_80": {
+      "Description": "80% chance of winning",
+      "Unit": "times"
+    },
+	"percent_90": {
+      "Description": "90% chance of winning",
+      "Unit": "times"
+    },
+	"percent_100": {
+      "Description": "100% chance of winning",
+      "Unit": "times"
+    }
+  }
+]

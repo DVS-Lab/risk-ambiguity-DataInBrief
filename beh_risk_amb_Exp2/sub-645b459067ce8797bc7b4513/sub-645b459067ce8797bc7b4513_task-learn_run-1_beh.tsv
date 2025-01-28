@@ -1,0 +1,91 @@
+Blocktype	tnum	rt	color	winprob	Amb	RL_feedback	choice	dist	side	response
+Learning	1	NA	green	0.5	[0,1]	win	Amb	norm	left	
+Learning	2	3126	green	0.59	[0,1]	win	risk	norm	right	j
+Learning	3	2427	green	0.53	[0,1]	win	risk	norm	left	f
+Learning	4	2977	green	0.46	[0,1]	win	risk	norm	right	j
+Learning	5	1651	green	0.35	[0,1]	win	risk	norm	left	f
+Learning	6	3489	green	0.18	[0,1]	win	risk	norm	right	j
+Learning	7	4015	green	0	[0,1]	win	Amb	norm	right	f
+Learning	8	2103	green	0.13	[0,1]	win	Amb	norm	right	f
+Learning	9	NA	green	0.29	[0,1]	win	Amb	norm	left	
+Learning	10	2553	green	0.55	[0,1]	win	risk	norm	right	j
+Learning	11	3613	green	0.4	[0,1]	win	risk	norm	left	f
+Learning	12	4260	green	0.18	[0,1]	win	risk	norm	right	j
+Learning	13	1734	green	0	[0,1]	win	risk	norm	left	f
+Learning	14	NA	green	0	[0,1]	win	Amb	norm	left	
+Learning	15	906	green	0.25	[0,1]	win	Amb	norm	right	f
+Learning	1	3442	blue	0.5	[0,1]	win	risk	norm	right	j
+Learning	2	1293	blue	0.41	[0,1]	win	Amb	norm	left	j
+Learning	3	2600	blue	0.47	[0,1]	win	risk	norm	right	j
+Learning	4	3167	blue	0.42	[0,1]	win	risk	norm	left	f
+Learning	5	1272	blue	0.39	[0,1]	win	risk	norm	right	j
+Learning	6	2112	blue	0.31	[0,1]	win	Amb	norm	right	f
+Learning	7	1169	blue	0.31	[0,1]	win	Amb	norm	left	j
+Learning	8	1898	blue	0.37	[0,1]	win	risk	norm	right	j
+Learning	9	1926	blue	0.35	[0,1]	win	risk	norm	right	j
+Learning	10	926	blue	0.3	[0,1]	win	risk	norm	right	j
+Learning	11	2733	blue	0.24	[0,1]	win	Amb	norm	left	j
+Learning	12	1126	blue	0.25	[0,1]	win	Amb	norm	left	j
+Learning	13	1927	blue	0.3	[0,1]	win	risk	norm	right	j
+Learning	14	1027	blue	0.26	[0,1]	win	Amb	norm	right	f
+Learning	15	1105	blue	0.28	[0,1]	win	Amb	norm	left	j
+Learning	1	3355	green	0.5	[0,1]	lose	Amb	norm	left	j
+Learning	2	2744	green	0.62	[0,1]	lose	Amb	norm	right	f
+Learning	3	1354	green	0.78	[0,1]	lose	Amb	norm	right	f
+Learning	4	1322	green	0.98	[0,1]	lose	Amb	norm	right	f
+Learning	5	3378	green	1	[0,1]	lose	risk	norm	left	f
+Learning	6	1100	green	0.81	[0,1]	lose	Amb	norm	right	f
+Learning	7	1757	green	0.87	[0,1]	lose	Amb	norm	right	f
+Learning	8	NA	green	0.97	[0,1]	lose	Amb	norm	left	
+Learning	9	1738	green	1	[0,1]	lose	risk	norm	right	j
+Learning	10	1777	green	0.91	[0,1]	lose	risk	norm	right	j
+Learning	11	1309	green	0.75	[0,1]	lose	Amb	norm	left	j
+Learning	12	1763	green	0.79	[0,1]	lose	risk	norm	right	j
+Learning	13	1431	green	0.76	[0,1]	lose	Amb	norm	left	j
+Learning	14	1577	green	0.76	[0,1]	lose	Amb	norm	right	f
+Learning	15	1416	green	0.81	[0,1]	lose	Amb	norm	left	j
+Learning	1	NA	red	0.5	[0,1]	lose	Amb	norm	left	
+Learning	2	3051	red	0.6	[0,1]	lose	risk	norm	left	f
+Learning	3	2891	red	0.55	[0,1]	lose	Amb	norm	right	f
+Learning	4	3302	red	0.55	[0,1]	lose	risk	norm	right	j
+Learning	5	1926	red	0.54	[0,1]	lose	risk	norm	right	j
+Learning	6	1948	red	0.52	[0,1]	lose	risk	norm	left	f
+Learning	7	1480	red	0.48	[0,1]	lose	Amb	norm	right	f
+Learning	8	1497	red	0.48	[0,1]	lose	Amb	norm	left	j
+Learning	9	2778	red	0.47	[0,1]	lose	risk	norm	left	f
+Learning	10	1378	red	0.45	[0,1]	lose	risk	norm	right	j
+Learning	11	1354	red	0.43	[0,1]	lose	risk	norm	right	j
+Learning	12	1326	red	0.42	[0,1]	lose	Amb	norm	left	j
+Learning	13	1630	red	0.43	[0,1]	lose	risk	norm	right	j
+Learning	14	2339	red	0.4	[0,1]	lose	risk	norm	right	j
+Learning	15	2142	red	0.4	[0,1]	lose	risk	norm	left	f
+Learning	1	3916	blue	0.5	[0,1]	lose	Amb	norm	left	j
+Learning	2	3471	blue	0.62	[0,1]	lose	risk	norm	left	f
+Learning	3	4282	blue	0.58	[0,1]	lose	risk	norm	left	f
+Learning	4	1518	blue	0.51	[0,1]	lose	risk	norm	left	f
+Learning	5	2763	blue	0.4	[0,1]	lose	Amb	norm	left	j
+Learning	6	1121	blue	0.43	[0,1]	lose	Amb	norm	right	f
+Learning	7	1014	blue	0.53	[0,1]	lose	Amb	norm	left	j
+Learning	8	4202	blue	0.66	[0,1]	lose	Amb	norm	right	f
+Learning	9	2573	blue	0.85	[0,1]	lose	Amb	norm	left	j
+Learning	10	2063	blue	1	[0,1]	lose	Amb	norm	left	j
+Learning	11	NA	blue	1	[0,1]	lose	Amb	norm	right	
+Learning	12	NA	blue	1	[0,1]	lose	Amb	norm	left	
+Learning	13	1712	blue	1	[0,1]	lose	Amb	norm	left	j
+Learning	14	NA	blue	1	[0,1]	lose	Amb	norm	right	
+Learning	15	NA	blue	1	[0,1]	lose	Amb	norm	left	
+Learning	1	NA	red	0.5	[0,1]	win	Amb	norm	left	
+Learning	2	2708	red	0.61	[0,1]	win	risk	norm	right	j
+Learning	3	999	red	0.57	[0,1]	win	Amb	norm	left	j
+Learning	4	1606	red	0.58	[0,1]	win	risk	norm	left	f
+Learning	5	1487	red	0.58	[0,1]	win	Amb	norm	left	j
+Learning	6	1371	red	0.61	[0,1]	win	Amb	norm	left	j
+Learning	7	1093	red	0.64	[0,1]	win	Amb	norm	right	f
+Learning	8	2362	red	0.63	[0,1]	win	Amb	norm	left	j
+Learning	9	866	red	0.62	[0,1]	win	Amb	norm	left	j
+Learning	10	1113	red	0.67	[0,1]	win	Amb	norm	left	j
+Learning	11	1097	red	0.7	[0,1]	win	Amb	norm	right	f
+Learning	12	2148	red	0.77	[0,1]	win	Amb	norm	left	j
+Learning	13	1460	red	0.86	[0,1]	win	Amb	norm	right	f
+Learning	14	3191	red	1	[0,1]	win	risk	norm	right	j
+Learning	15	3185	red	0.91	[0,1]	win	risk	norm	left	f

@@ -1,0 +1,48 @@
+[
+  {
+    "MeasurementToolMetadata": {
+      "Description": "Subjective Fraud Questionnaire"
+    },
+    "SFQ1": {
+      "Description": "Have you ever been the victim of a scam or financial exploitation?",
+      "Levels": {
+        "1": "Yes",
+        "2": "No"
+      }
+    },
+    "SFQ2": {
+      "Description": "If yes, Approximately how much money (in dollars) did you lose as a result of fraud or financial exploitation in your lifetime?",
+      "Unit": "text"
+    },
+    "SFQ3": {
+      "Description": "If yes, Approximately when did the scam or financial exploitation occur?",
+      "Unit": "text"
+    },
+    "SFQ4": {
+      "Description": "How would you categorize the scam or financial exploitation that occur?",
+      "Levels": {
+        "1": "An impersonator (fake government, business, love interest, grandchild, etc)",
+        "2": "Job, investment, or money making opportunity",
+        "3": "Phone, internet, TV service",
+        "4": "Health (weight loss, other treatments)",
+        "5": "Online shopping",
+        "6": "Sweepstakes, prize, lottery",
+        "7": "Auto sale or repair",
+        "8": "Credit, debt, or loan",
+        "9": "Other not described"
+      }
+    },
+    "SFQ5": {
+      "Description": "Can you describe the event and what happened?",
+      "Unit": "text"
+    },
+    "SFQ6": {
+      "Description": "How much money have you lost in your lifetime as a result of fraud, financial exploitation, or related scams?",
+      "Unit": "text"
+    },
+    "SFQ7": {
+      "Description": "How much money have you lost in the past 12 months as a result of fraud, financial exploitation, or related scams?",
+      "Unit": "text"
+    }
+  }
+]

@@ -1,0 +1,64 @@
+
+  {
+    "MeasurementToolMetadata": {
+      "Description": "Risky Colored Lottery Task"
+    },
+    "Blocktype": {
+      "Description": "type of task",
+      "Levels": {
+        "Learning": "Learning",
+        "Ambiguity": "Ambiguity",
+        "risk": "risk"
+      }
+    },
+    "tnum": {
+      "Description": "trial number",
+      "Unit": "Index"
+    },
+    "rt": {
+      "Description": "reaction time (ms); blank values mean no response",
+      "Unit": "ms"
+    },
+    "color": {
+      "Description": "color of lottery stimulus",
+      "Levels": {
+        "red": "red",
+        "green": "green",
+        "blue": "blue"
+      }
+    },
+    "winprob": {
+      "Description": "chance of winning the lottery",
+      "Unit": "1"
+    },
+    "select": {
+      "Description": "left or right; blank values mean no response",
+      "Levels": {
+        "f": "left",
+        "j": "right"
+      }
+    },
+    "dist": {
+      "Description": "shape of distribution, should match the color (narrow green, wide red, skew blue)",
+      "Levels": {
+        "wide": "wide",
+        "narrow": "narrow",
+        "skewed": "skewed"
+      }
+    },
+    "side": {
+      "Description": "what Unit the risky lottery appeared on ",
+      "Levels": {
+        "left": "left",
+        "right": "right"
+      }
+    },
+    "response": {
+      "Description": "f or j; which button (Unit) the participant pushed",
+      "Levels": {
+        "f": "left",
+        "j": "right"
+      }
+    }
+  }
+

@@ -1,0 +1,49 @@
+[
+  {
+    "MeasurementToolMetadata": {},
+    "sex": {
+      "Description": "What is your sex?",
+      "Levels": {
+        "1": "M",
+        "2": "F",
+        "3": "Other"
+      }
+    },
+    "race": {
+      "Description": "Which race or ethicity best describes you? (Please choose only one.)",
+      "Levels": {
+        "1": "Native American or Alaskan Native",
+        "2": "Asian / Pacific Islander",
+        "3": "Black or African American",
+        "4": "Hispanic",
+        "5": "White / Caucasian",
+        "6": "Multiple ethnicity/ Other (please specify)"
+      }
+    },
+    "raceOther": {
+      "Description": "If Other, please elaborate",
+      "Unit": "text"
+    },
+    "education": {
+      "Description": "What is your highest level of education?",
+      "Levels": {
+        "1": "No schooling completed",
+        "2": "Some high school, no diploma",
+        "3": "High school graduate, diploma or the equivalent",
+        "4": "Some college credit, no degree",
+        "5": "Associates Degree",
+        "6": "Bachelor's Degree",
+        "7": "Master's Degree",
+        "8": "Doctoral Degree"
+      }
+    },
+    "Zip1": {
+      "Description": "What is the zip code of your current residence?",
+      "Unit": "text"
+    },
+    "Zip5": {
+      "Description": "If you have moved in the past 5 years, which zip code did you spend most of your time?",
+      "Unit": "text"
+    }
+  }
+]

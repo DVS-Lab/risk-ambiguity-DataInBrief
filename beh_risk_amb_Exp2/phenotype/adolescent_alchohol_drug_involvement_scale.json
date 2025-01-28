@@ -1,0 +1,140 @@
+[
+  {
+    "MeasurementToolMetadata": {
+      "Description": "Adolescent Alcohol and Drug Involvement Scale",
+      "TermURL": "https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=07060890ba2cea5be6c77f4f5094d9333c04a0c7"
+    },
+    "AADIS1": {
+      "Description": "Tobacco(cigarettes, cigars), chewing tobacco, nicotine gum or nicotine patch,",
+      "Levels": {
+        "1": "Never Used",
+        "2": "Once or Twice",
+        "3": "Several Times a Month",
+        "4": "Weekends Only",
+        "5": "Several Times a Week",
+        "6": "Daily",
+        "7": "Several Times Daily"
+      }
+    },
+    "AADIS2": {
+      "Description": "Alcohol (beer, wine, liquor)",
+      "Levels": {
+        "1": "Never Used",
+        "2": "Once or Twice",
+        "3": "Several Times a Month",
+        "4": "Weekends Only",
+        "5": "Several Times a Week",
+        "6": "Daily",
+        "7": "Several Times Daily"
+      }
+    },
+    "AADIS4": {
+      "Description": "LSD, mushrooms, peyote, mescaline or other hallucinogens (acid, shrooms, Special K)",
+      "Levels": {
+        "1": "Never Used",
+        "2": "Once or Twice",
+        "3": "Several Times a Month",
+        "4": "Weekends Only",
+        "5": "Several Times a Week",
+        "6": "Daily",
+        "7": "Several Times Daily"
+      }
+    },
+    "AADIS5": {
+      "Description": "Amphetamines (speed, ecstasy, uppers,  crystal meth, Ice, Tina), or ritalin, concerta, or adderall without a prescription",
+      "Levels": {
+        "1": "Never Used",
+        "2": "Once or Twice",
+        "3": "Several Times a Month",
+        "4": "Weekends Only",
+        "5": "Several Times a Week",
+        "6": "Daily",
+        "7": "Several Times Daily"
+      }
+    },
+    "AADIS6": {
+      "Description": "Powder Cocaine (coke, blow)",
+      "Levels": {
+        "1": "Never Used",
+        "2": "Once or Twice",
+        "3": "Several Times a Month",
+        "4": "Weekends Only",
+        "5": "Several Times a Week",
+        "6": "Daily",
+        "7": "Several Times Daily"
+      }
+    },
+    "AADIS7": {
+      "Description": "Rock Cocaine (crack, rock, freebase)",
+      "Levels": {
+        "1": "Never Used",
+        "2": "Once or Twice",
+        "3": "Several Times a Month",
+        "4": "Weekends Only",
+        "5": "Several Times a Week",
+        "6": "Daily",
+        "7": "Several Times Daily"
+      }
+    },
+    "AADIS8": {
+      "Description": "Barbiturates (quaaludes, downers, ludes, blues, goofballs)",
+      "Levels": {
+        "1": "Never Used",
+        "2": "Once or Twice",
+        "3": "Several Times a Month",
+        "4": "Weekends Only",
+        "5": "Several Times a Week",
+        "6": "Daily",
+        "7": "Several Times Daily"
+      }
+    },
+    "AADIS9": {
+      "Description": "PCP (angel dust)",
+      "Levels": {
+        "1": "Never Used",
+        "2": "Once or Twice",
+        "3": "Several Times a Month",
+        "4": "Weekends Only",
+        "5": "Several Times a Week",
+        "6": "Daily",
+        "7": "Several Times Daily"
+      }
+    },
+    "AADIS10": {
+      "Description": "Heroin or other opiates (opium, morphine, oxycontin, codeine, smack, horse, cheese)",
+      "Levels": {
+        "1": "Never Used",
+        "2": "Once or Twice",
+        "3": "Several Times a Month",
+        "4": "Weekends Only",
+        "5": "Several Times a Week",
+        "6": "Daily",
+        "7": "Several Times Daily"
+      }
+    },
+    "AADIS11": {
+      "Description": "Inhalants (glue, gasoline, spray cans, paint, nitrous oxide, whippits, ether, chloroform, whiteout, rush, etc.)",
+      "Levels": {
+        "1": "Never Used",
+        "2": "Once or Twice",
+        "3": "Several Times a Month",
+        "4": "Weekends Only",
+        "5": "Several Times a Week",
+        "6": "Daily",
+        "7": "Several Times Daily"
+      }
+    },
+    "AADIS12": {
+      "Description": "Valium, xanax (xandies), ativan, benzos, GHB (ruffies) or other tranquilizers without a prescription",
+      "Levels": {
+        "1": "Never Used",
+        "2": "Once or Twice",
+        "3": "Several Times a Month",
+        "4": "Weekends Only",
+        "5": "Several Times a Week",
+        "6": "Daily",
+        "7": "Several Times Daily"
+      }
+    }
+  }
+]

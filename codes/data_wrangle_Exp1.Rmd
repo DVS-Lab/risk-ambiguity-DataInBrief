@@ -1,0 +1,253 @@
+---
+title: "data_wrangle_Exp1"
+author: "Jen Yang"
+date: "2024-03-15"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    hightlight: zenburn
+    toc_depth: 6
+---
+
+# note
+date created: 3-16-2024 by Jen Yang
+date last modified: 3-16-2024 by Jen Yang
+generate tsv from json
+```{r clean, include=FALSE}
+# clean environment
+rm(list = ls())
+```
+
+```{r restart R session, include=FALSE, results='hide'}
+# .rs.restartR()
+```
+
+# Load libraries
+```{r libraries, message=FALSE, warning=TRUE, include=FALSE}
+library(car)
+library(plyr)
+library(foreign)
+library(pscl)
+library(boot)
+# library(MASS)
+library(robust)
+library(sfsmisc)
+library(ggplot2)
+library(reshape2)
+library(ppcor)
+library(ggrepel)
+library(Hmisc)
+library(tidyverse)
+library(sandwich)
+library(ggpubr)
+library(interactions)
+library(knitr)
+library(twowaytests)
+library(ggfortify)
+library(interactions)
+library(broom)
+library(patchwork)
+library(robustbase)
+library(lmtest)
+library(modelr)
+library(Rmisc)
+# library(raincloudplots)
+library(cowplot)
+library(readr)
+library(PupillometryR)
+library(ggpp)
+library(estimatr)
+library(skedastic)
+library(ggpubr)
+library(lubridate)
+library(readxl)
+library(gridExtra)
+library(scales)
+library(rstudioapi)
+library(dplyr)
+library(jsonlite)
+library(rjson)
+library(readr)
+```
+
+# load tsv and RedCap raw data
+```{r}
+redcap_data_dir = "/Users/momocco/Documents/GitHub/risk-ambiguity/data/Exp1"
+OSF_exp1_dir = "/Users/momocco/Documents/GitHub/risk-ambiguity/dissenminate/OSF_upload/beh_risk_amb_Exp1"
+
+git_mem_dir = "/Users/momocco/Documents/GitHub/risk-ambiguity/data/Exp1/memory"
+
+taskdata_google_dir = "/Users/momocco/Library/CloudStorage/GoogleDrive-tun51150@temple.edu/.shortcut-targets-by-id/1Yd_mABZr2-erO8s2c0GuJSs36TfUycDa/Limited_Info/Experiment_1/risk_amb/data/subject_data_compressed"
+sublist_google_dir = "/Users/momocco/Library/CloudStorage/GoogleDrive-tun51150@temple.edu/.shortcut-targets-by-id/1Yd_mABZr2-erO8s2c0GuJSs36TfUycDa/Limited_Info/Experiment_1/risk_amb/data/"
+
+# load redcap ISTART2021 data
+ISTART21_redcap_name = "ISTART2021_DATA_2025-01-24_1002.csv"
+ISTART21_redcap_df = read.csv(paste(redcap_data_dir, ISTART21_redcap_name, sep = "/"))
+
+ISTART21_screen_df = subset(ISTART21_redcap_df, redcap_event_name == "screening_process_arm_1")
+```
+
+# check participant availability based on redcap, data, list provided
+## Data in Brief list
+```{r}
+DB_df = read_tsv(paste(redcap_data_dir, "participants_DB.tsv", sep = "/"), show_col_types = F)
+sub_DB = DB_df$participant_id
+```
+
+## redcap list
+```{r}
+# sub list from redcap data
+ISTART21_demo_df =  ISTART21_screen_df %>% 
+  select('participant_id', 'screen_age', 'screen_gender', 'screen_race', 'screen_ethnicity_games') %>% 
+  filter(!is.na(as.numeric(participant_id))) %>% # keep rows that has only numbers in participant_id
+  mutate(participant_id = paste0("sub-", participant_id))
+sub_redcap = ISTART21_demo_df$participant_id
+length(sub_redcap)
+```
+
+## istart final
+```{r}
+sub_istart = unique(c(sub_redcap, sub_DB))
+length(sub_istart)
+```
+## participant csv from jeff
+```{r}
+# sub list from participant list provided
+sub2_name = "participants2.csv"
+sub2_df = read.csv(paste(sublist_google_dir, sub2_name, sep = "/"))
+sub2_list_num = sub2_df$participant_id
+sub2_list = sub2_df$participant_id %>% paste0("sub-",.)
+
+sub_name = "participants.csv"
+sub_df = read.csv(paste(sublist_google_dir, sub_name, sep = "/"))
+sub_list_num = sub_df$participant_id
+sub_list = sub_df$participant_id %>% paste0("sub-",.)
+
+sub.tsv_name = "participants.tsv.csv"
+sub.tsv_df = read.csv(paste(sublist_google_dir, sub.tsv_name, sep = "/"))
+sub.tsv_list_num = sub.tsv_df$participant_id
+sub.tsv_list = sub.tsv_df$participant_id %>% paste0("sub-",.)
+
+sub_jeff_list = c(sub2_list, sub_list, sub.tsv_list) %>% unique() # 76
+length(sub_jeff_list)
+```
+
+## data from jeff
+### raw behavior
+```{r}
+# sub list all subs included in the folder
+sub_google_data <- list.dirs(path = taskdata_google_dir, full.names = FALSE, recursive = FALSE)
+## check data availability
+sub_google_data_check_df = data.frame(matrix(nrow = length(sub_google_data), 
+                                             ncol = 4))
+colnames(sub_google_data_check_df) = c("participant_id", "mem", "risk", "amb")
+for (i in 1:length(sub_google_data)) {
+  sub_google_data_check_df$participant_id[i] = sub_google_data[i]
+  ## check mem.pdf
+  mem_name = paste0(str_extract_all(sub_google_data[i], "\\d+"), "_ManipulationCheck.pdf")
+  mem_dir = paste(taskdata_google_dir, sub_google_data[i],mem_name, sep = "/" )
+  sub_google_data_check_df$mem[i] = ifelse(file.exists(mem_dir),1,0)
+  ## check risk.csv
+  risk_name = paste0(sub_google_data[i], "_task-risk_events.csv")
+  risk_dir = paste(taskdata_google_dir, sub_google_data[i],risk_name, sep = "/" )
+  sub_google_data_check_df$risk[i] = ifelse(file.exists(risk_dir),1,0)
+  ## check amb.csv
+  amb_name = paste0(sub_google_data[i], "_task-ambiguity_events.csv")
+  amb_dir = paste(taskdata_google_dir, sub_google_data[i],amb_name, sep = "/" )
+  sub_google_data_check_df$amb[i] = ifelse(file.exists(amb_dir),1,0)
+}
+
+# retain subs with at least risk or ambiguity
+sub_google_data_check_df = sub_google_data_check_df %>% 
+  mutate(task_check = risk + amb) # 57 subs
+nrow(sub_google_data_check_df)
+sub_task_list = sub_google_data_check_df[sub_google_data_check_df$task_check >0,] %>% 
+  .$participant_id # 56 subs
+length(sub_task_list)
+```
+
+# final participant list
+```{r}
+sub_final = sub_istart %>% 
+  intersect(., sub_jeff_list) %>%
+  intersect(., sub_task_list) %>% # 48
+  intersect(., sub_DB)  # 46, sub-3146 sub-3178 not in DB
+length(sub_final)
+sub_final_df = data.frame(participant_id = sub_final)
+write_csv(sub_final_df, paste(redcap_data_dir, "participants_final.csv", sep = "/"))
+```
+
+# memory/manipulation check
+```{r}
+mem_sub_list_df = read_tsv(paste(git_mem_dir, "color_best_worst.tsv", sep = "/"), show_col_types = FALSE)
+mem_sub_list = mem_sub_list_df$participant_id # 48 subs
+```
+## common subs in memory and final list
+```{r}
+sub_mem_final = intersect(sub_final, mem_sub_list)
+length(sub_mem_final)
+```
+# demographics of final list
+```{r}
+demo_final_df = subset(DB_df, participant_id %in% sub_final) %>% 
+  select(participant_id, Age, Gender, screen_race)
+colnames(demo_final_df) = c('participant_id', 'age', 'gender', 'race')
+describe(demo_final_df)
+sd(demo_final_df$age)
+```
+# save final participants.tsv
+```{r}
+write_tsv(demo_final_df, paste(OSF_exp1_dir, "participants.tsv", sep = "/"))
+```
+
+
+<!-- # tsv based on json (to delete. replicate of another dataset and data paper) -->
+<!-- ```{r} -->
+<!-- # list all existing jsons -->
+<!-- json_all = list.files(path = phenotype_dir, pattern = ".json") -->
+<!-- n_json = length(json_all) -->
+
+<!-- # extract and save each questionnaire based on json info -->
+<!-- for (i in 1:n_json) { # the ith questionnaire's json -->
+<!--   # i = 14 -->
+<!--   print(i) -->
+<!--   tsv_name_i = strsplit(json_all[i], "\\.")[[1]][1] -->
+<!--   print(tsv_name_i) -->
+<!--   json_df_i <- jsonlite::fromJSON(paste(phenotype_dir, json_all[i], sep = "/")) -->
+<!--   json_names_i = names(json_df_i) -->
+<!--   # print(json_names_i) -->
+<!--   items_i = json_names_i[2:length(json_names_i)] -->
+<!--   print(items_i) -->
+<!--   N_items_i = length(items_i) -->
+<!--   item_name_check = items_i[1] %in% var_combined_names -->
+<!--   if (item_name_check == 1) { -->
+<!--     ISTART21_df = ISTART21_combined_df -->
+<!--     print("combined") -->
+<!--     questionnaire_df_i = ISTART21_df[, c("participant_id", items_i)] -->
+<!--     tvs_df_i = merge(sublist, questionnaire_df_i, by = "participant_id", all.x = TRUE) # merge with sublist -->
+<!--   } else { -->
+<!--     ISTART21_df = ISTART21_redcap_df -->
+<!--     print("redcap") -->
+<!--     questionnaire_df_i = ISTART21_df[, c("participant_id", items_i)] -->
+<!--     questionnaire_df_i$check = rowSums(is.na(questionnaire_df_i[,items_i])) # find completely empty rows -->
+<!--     questionnaire_df_i = questionnaire_df_i[questionnaire_df_i$check < (N_items_i-1),] # remove completely empty rows -->
+<!--     tvs_df_i = merge(sublist, questionnaire_df_i, by = "participant_id", all.x = TRUE) # merge with sublist -->
+<!--   } -->
+
+<!--   write_tsv(tvs_df_i, file = paste(phenotype_dir, paste(tsv_name_i, "tsv", sep = "."), sep = "/")) -->
+<!-- } -->
+<!-- ``` -->
+
+
+
+
+
+
+
+
+
+

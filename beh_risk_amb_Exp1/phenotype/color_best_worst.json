@@ -1,0 +1,26 @@
+[
+  {
+    "MeasurementToolMetadata": {
+      "Description": "Which Color Lottery was the best? Which Color Lottery was the worst?",
+      "TermURL": "NA"
+    },
+    "best_lot": {
+      "Description": "Which Color Lottery was the best?",
+      "Levels": {
+        "1": "red",
+        "2": "green",
+        "3": "blue",
+        "4": "yellow"
+      }
+    },
+    "worst_lot": {
+      "Description": "Which Color Lottery was the worst?",
+      "Levels": {
+        "1": "red",
+        "2": "green",
+        "3": "blue",
+        "4": "yellow"
+      }
+    }
+  }
+]

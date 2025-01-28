@@ -1,0 +1,126 @@
+---
+title: "final participant list for Exp1 Exp2 and Demographics"
+author: "Jen Yang"
+date: "created on 2025-01-17, last modified on 2025-1-17"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    hightlight: zenburn
+    toc_depth: 6
+---
+
+```{r clean, include=FALSE}
+# clean environment
+rm(list = ls())
+```
+
+# Load libraries
+```{r libraries, message=FALSE, warning=TRUE, include=FALSE}
+library(car)
+library(plyr)
+library(foreign)
+library(pscl)
+library(boot)
+library(MASS)
+library(robust)
+library(sfsmisc)
+library(ggplot2)
+library(reshape2)
+library(ppcor)
+library(ggrepel)
+library(Hmisc)
+library(tidyverse)
+library(sandwich)
+library(ggpubr)
+library(interactions)
+library(knitr)
+library(twowaytests)
+library(ggfortify)
+library(interactions)
+library(broom)
+library(patchwork)
+library(robustbase)
+library(lmtest)
+library(modelr)
+library(Rmisc)
+# library(raincloudplots)
+library(cowplot)
+library(readr)
+library(PupillometryR)
+library(ggpp)
+library(estimatr)
+library(skedastic)
+library(ggpubr)
+library(lubridate)
+library(readxl)
+library(gridExtra)
+library(scales)
+library(rstudioapi)
+library(fs)
+library(jsonlite)
+library(rjson)
+library(readr)
+```
+
+# knit global setup
+```{r}
+knitr::opts_chunk$set(cache = FALSE)
+```
+
+# load BIDS generator function
+```{r}
+source("BIDS_behavior_df_fun2.R", local = knitr::knit_global())
+```
+
+# create global dataframe to save items
+```{r}
+items_BIDS_keep.env <- new.env()
+```
+
+# data folder directory
+```{r}
+exp2_data_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/data/Exp2"
+
+git_OSF_exp2_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/dissenminate/OSF_upload/beh_risk_amb_Exp2"
+git_OSF_exp1_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/dissenminate/OSF_upload/beh_risk_amb_Exp1"
+
+exp2_google_dir = "/Users/momocco/Library/CloudStorage/GoogleDrive-tun51150@temple.edu/.shortcut-targets-by-id/1Yd_mABZr2-erO8s2c0GuJSs36TfUycDa/Limited_Info/Experiment_2"
+```
+
+# Exp1
+```{r}
+participant_exp1_df = read_tsv(paste(git_OSF_exp1_dir, "participants.tsv", sep = "/"), show_col_types = FALSE)
+
+mean_age_exp1 = mean(participant_exp1_df$Age)
+sd_age_exp1 = sd(participant_exp1_df$Age)
+print(c(mean_age_exp1, sd_age_exp1))
+
+describe(participant_exp1_df$Gender)
+describe(participant_exp1_df$screen_race)
+```
+
+# Exp2
+```{r}
+participant_exp2_df = read_tsv(paste(git_OSF_exp2_dir, "participants.tsv", sep = "/"), show_col_types = FALSE)
+
+mean_age_exp2 = mean(participant_exp2_df$age)
+sd_age_exp2 = sd(participant_exp2_df$age)
+print(c(mean_age_exp2, sd_age_exp2))
+
+describe(participant_exp2_df$sex)
+describe(participant_exp2_df$race)
+table(participant_exp2_df$race)
+```
+
+```{r}
+mean_age_exp2 = mean(participant_exp2_df$Age)
+sd_age_exp2 = sd(participant_exp2_df$Age)
+print(c(mean_age_exp2, sd_age_exp2))
+
+describe(participant_exp2_df$Gender)
+describe(participant_exp2_df$screen_race)
+```

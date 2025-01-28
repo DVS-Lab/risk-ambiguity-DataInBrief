@@ -1,0 +1,33 @@
+{
+  "age": {
+    "Description": "What is your age?",
+    "Units": "years"
+  },
+  "sex": {
+    "Description": "What is your sex?",
+    "Levels": {
+      "M": "Male",
+      "F": "Female",
+      "N/a": "Non-binary"
+    }
+  },
+  "sexOther": {
+    "Description": "If Other, please elaborate",
+    "Units": "text"
+  },
+  "race": {
+    "Description": "Which race or ethnicity best describes you? (Please choose only one.)",
+    "Levels": {
+      "1": "Native American or Alaskan Native",
+      "2": "Asian / Pacific Islander",
+      "3": "Black or African American",
+      "4": "Hispanic",
+      "5": "White / Caucasian",
+      "6": "Multiple ethnicity/ Other (please specify)"
+    }
+  },
+  "raceOther": {
+    "Description": "If Other, please elaborate",
+    "Units": "text"
+  }
+}

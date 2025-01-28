@@ -1,0 +1,53 @@
+
+  {
+    "MeasurementToolMetadata": {
+      "Description": "Risky Colored Lottery Task"
+    },
+    "LotisLeft": {
+      "Description": "whether the risky choice is displayed on the left, 1 = left, 0 = right",
+      "Levels": {
+        "1": "left",
+        "0": "right"
+      }
+    },
+    "Lot_per": {
+      "Description": "chance of winning the lottery",
+      "Unit": "percentage"
+    },
+    "Lot_mon": {
+      "Description": "size of reward if win the lottery",
+      "Unit": "US dollar"
+    },
+    "Lot_color": {
+      "Description": "color of lottery stimulus",
+      "Levels": {
+        "red": "red",
+        "green": "green",
+        "blue": "blue"
+      }
+    },
+    "Sure_mon": {
+      "Description": "size of reward if choose the sure option",
+      "Unit": "US dollar"
+    },
+    "dist": {
+      "Description": "shape of distribution, should match the color (narrow green, wide red, skew blue)",
+      "Levels": {
+        "wide": "wide",
+        "narrow": "narrow",
+        "skewed": "skewed"
+      }
+    },
+    "response": {
+      "Description": "f or j; which button (side) the participant pushed",
+      "Levels": {
+        "f": "left",
+        "j": "right"
+      }
+    },
+    "RT": {
+      "Description": "reaction time (ms); blank values mean no response",
+      "Unit": "ms"
+    }
+  }
+

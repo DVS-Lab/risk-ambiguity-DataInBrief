@@ -1,0 +1,400 @@
+---
+title: "behavior_data_BIDSdictionary"
+author: "Jen Yang"
+date: "created on 2024-05-16, last modified on 2025-1-27"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    hightlight: zenburn
+    toc_depth: 6
+---
+
+```{r clean, include=FALSE}
+# clean environment
+rm(list = ls())
+```
+
+```{r restart R session, include=FALSE, results='hide'}
+# .rs.restartR()
+```
+
+# Load libraries
+```{r libraries, message=FALSE, warning=TRUE, include=FALSE}
+library(car)
+library(plyr)
+library(foreign)
+library(pscl)
+library(boot)
+library(MASS)
+library(robust)
+library(sfsmisc)
+library(ggplot2)
+library(reshape2)
+library(ppcor)
+library(ggrepel)
+library(Hmisc)
+library(tidyverse)
+library(sandwich)
+library(ggpubr)
+library(interactions)
+library(knitr)
+library(twowaytests)
+library(ggfortify)
+library(interactions)
+library(broom)
+library(patchwork)
+library(robustbase)
+library(lmtest)
+library(modelr)
+library(Rmisc)
+# library(raincloudplots)
+library(cowplot)
+library(readr)
+library(PupillometryR)
+library(ggpp)
+library(estimatr)
+library(skedastic)
+library(ggpubr)
+library(lubridate)
+library(readxl)
+library(gridExtra)
+library(scales)
+library(rstudioapi)
+library(fs)
+library(jsonlite)
+library(rjson)
+library(readr)
+library(readxl)
+```
+
+# knit global setup
+```{r}
+knitr::opts_chunk$set(cache = FALSE)
+```
+
+# load functions
+```{r}
+source("BIDS_behavior_df_fun2.R", local = knitr::knit_global())
+source("convert_csv_to_tsv_fun.R", local = knitr::knit_global())
+```
+
+# create global dataframe to save items
+```{r}
+items_BIDS_keep.env <- new.env()
+```
+
+# data folder directory
+```{r}
+google_exp2_dir = "/Users/momocco/Library/CloudStorage/GoogleDrive-tun51150@temple.edu/.shortcut-targets-by-id/1Yd_mABZr2-erO8s2c0GuJSs36TfUycDa/Limited_Info/Experiment_2/bids"
+google_exp1_dir = "/Users/momocco/Library/CloudStorage/GoogleDrive-tun51150@temple.edu/.shortcut-targets-by-id/1Yd_mABZr2-erO8s2c0GuJSs36TfUycDa/Limited_Info/Experiment_1/risk_amb/data"
+
+git_OSF_exp2_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/dissenminate/OSF_upload/beh_risk_amb_Exp2"
+git_OSF_exp1_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/dissenminate/OSF_upload/beh_risk_amb_Exp1"
+```
+
+# Exp 2
+## load participant list
+```{r}
+participants_exp2_df = read_tsv(paste(git_OSF_exp2_dir, "participants.tsv", sep = "/"), show_col_types = FALSE)
+participants_exp2_list = participants_exp2_df$participant_id
+```
+
+## copy, modify, rename
+```{r}
+## rename files (change _events.tsv to _beh.tsv)
+old_substring <- "_events.tsv"
+new_substring <- "_beh.tsv"
+old_mem_substring <- "_mem-report.tsv"
+new_mem_substring <- "_task-memory_beh.tsv"
+
+for (f in 1:length(participants_exp2_list)) {
+  # f = 1
+  ## copy entire subject folder from jeff's folder to OSF_upload folder
+  ### Specify the source and destination paths
+  source_folder <- paste(google_exp2_dir, participants_exp2_list[f], sep = "/")
+  destination_folder <- git_OSF_exp2_dir
+  
+  ### Copy the entire folder structure
+  file.copy(from = source_folder, 
+            to = destination_folder, 
+            recursive = TRUE, 
+            overwrite = TRUE)
+  
+  ### rename copied files
+  OSF_sub_path = paste(git_OSF_exp2_dir, participants_exp2_list[f], sep = "/")
+  old_files <- list.files(path = OSF_sub_path)
+  
+  # Create new names by replacing the substring
+  new_names <- str_replace_all(old_files, old_substring, new_substring)
+  new_names <- str_replace_all(new_names, old_mem_substring, new_mem_substring)
+  
+  # Rename the files
+  file.rename(from = file.path(OSF_sub_path, old_files), to = file.path(OSF_sub_path, new_names))
+}
+```
+
+## modify column name
+```{r}
+## Define the old and new column names
+risk_old_colname <- "p1"
+amb_old_colname = "per"
+learn_old_colname = "per"
+new_colname <- "winprob"
+
+for (f in 1:length(participants_exp2_list)) {
+  # f = 1
+  # print(f)
+  OSF_sub_path = paste(git_OSF_exp2_dir, participants_exp2_list[f], sep = "/")
+  tsv_files <- list.files(path = OSF_sub_path, pattern = "\\.tsv$", full.names = TRUE)
+ 
+  for (i in 1:length(tsv_files)) {
+    # i = 2
+    # print(i)
+    if (endsWith(tsv_files[i], "task-amb_run-1_beh.tsv") == TRUE ) {
+      task_current_df = read.table(file = tsv_files[i], sep = '\t', header = TRUE)
+      if (amb_old_colname %in% colnames(task_current_df)) {
+      task_current_df = task_current_df %>% 
+        rename(!!new_colname := !!sym(amb_old_colname))
+      write_tsv(task_current_df, tsv_files[i])
+      }
+    } else if (endsWith(tsv_files[i], "task-risk_run-1_beh.tsv") == TRUE ) {
+      task_current_df = read.table(file = tsv_files[i], sep = '\t', header = TRUE)
+      if (risk_old_colname %in% colnames(task_current_df)) {
+      task_current_df = task_current_df %>% 
+        rename(!!new_colname := !!sym(risk_old_colname))
+      write_tsv(task_current_df, tsv_files[i])
+      }
+    } else if (endsWith(tsv_files[i], "task-learn_run-1_beh.tsv") == TRUE ) {
+      task_current_df = read.table(file = tsv_files[i], sep = '\t', header = TRUE)
+      if (learn_old_colname %in% colnames(task_current_df)) {
+      task_current_df = task_current_df %>% 
+        rename(!!new_colname := !!sym(learn_old_colname))
+      write_tsv(task_current_df, tsv_files[i])
+      }
+    }
+  }
+}
+```
+
+## behavior json
+### load meta info
+```{r}
+# directory
+meta_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/data"
+
+# from the main spreadsheet
+main_behavior_spreadsheet = read_excel(paste(meta_dir, "BehaviorMeta_Exp2.xlsx", sep = "/"))
+
+# directly from session project RedCap
+behavior_dictionary = read_excel(paste(meta_dir, "BehaviorDict_Exp2.xlsx", sep = "/"))
+
+# from the scoring spreadsheet
+task_dictionary = read_excel(paste(meta_dir,"BehaviorTaskMap_Exp2.xlsx", sep = "/"))
+```
+
+### memory report
+```{r}
+task_name = "memory"
+for (f in 1:length(participants_exp2_list)) {
+  # f = 2
+  if (startsWith(participants_exp2_list[f], "sub-") == TRUE ) {
+    OSF_sub_path_partial = paste(git_OSF_exp2_dir, participants_exp2_list[f], participants_exp2_list[f], sep = "/")
+    BIDS_pheno = BIDS_behavior_df_fun2(task_name, main_behavior_spreadsheet,
+                                    behavior_dictionary, 
+                                    task_dictionary, OSF_sub_path_partial)
+  }
+}
+```
+
+### risk task
+```{r}
+task_name = "risk"
+for (f in 1:length(participants_exp2_list)) {
+  # print(f)
+  if (startsWith(participants_exp2_list[f], "sub-") == TRUE ) {
+    OSF_sub_path_partial = paste(git_OSF_exp2_dir, participants_exp2_list[f], participants_exp2_list[f], sep = "/")
+    BIDS_pheno = BIDS_behavior_df_fun2(task_name, main_behavior_spreadsheet,
+                                       behavior_dictionary, 
+                                       task_dictionary, OSF_sub_path_partial)
+  }
+}
+```
+
+### ambiguity task
+```{r}
+task_name = "amb"
+for (f in 1:length(participants_exp2_list)) {
+  # f = 2
+  if (startsWith(participants_exp2_list[f], "sub-") == TRUE ) {
+    OSF_sub_path_partial = paste(git_OSF_exp2_dir, participants_exp2_list[f], participants_exp2_list[f], sep = "/")
+    BIDS_pheno = BIDS_behavior_df_fun2(task_name, main_behavior_spreadsheet,
+                                       behavior_dictionary, 
+                                       task_dictionary, OSF_sub_path_partial)
+  }
+}
+```
+
+### learning task
+```{r}
+task_name = "learn"
+for (f in 1:length(participants_exp2_list)) {
+  # f = 2
+  if (startsWith(participants_exp2_list[f], "sub-") == TRUE ) {
+    OSF_sub_path_partial = paste(git_OSF_exp2_dir, participants_exp2_list[f], participants_exp2_list[f], sep = "/")
+    BIDS_pheno = BIDS_behavior_df_fun2(task_name, main_behavior_spreadsheet,
+                                       behavior_dictionary, 
+                                       task_dictionary, OSF_sub_path_partial)
+  }
+}
+```
+
+## create beh folder for each sub
+```{r}
+beh_folder = "beh"
+
+for (f in 1:length(participants_exp2_list)) {
+  # f = 2
+  if (startsWith(participants_exp2_list[f], "sub-") == TRUE) {
+    sub_f_path <- paste(git_OSF_exp2_dir, participants_exp2_list[f],sep = "/")
+    beh_folder_path <- file.path(sub_f_path, beh_folder)
+    dir_create(beh_folder_path)
+    # List all files in current sub folder
+    all_files <- dir_ls(sub_f_path, type = "file")
+    if (length(all_files)==0) {
+      print(paste("no files in ", sub_f_path, sep = ""))
+    } else {
+      # Move all files to the new subfolder
+      for (file in all_files) {
+        file_move(file, beh_folder_path)
+      }
+    }
+  }
+}
+```
+
+# Exp 1
+## load participant list
+```{r}
+participants_exp1_df = read_tsv(paste(git_OSF_exp1_dir, "participants.tsv", sep = "/"), show_col_types = FALSE)
+participants_exp1_list = participants_exp1_df$participant_id
+```
+
+## convert file type, rename
+```{r}
+old_substring <- "_events.tsv"
+new_substring <- "_beh.tsv"
+for (f in 1:length(participants_exp1_list)) {
+  # f = 1
+  if (startsWith(participants_exp1_list[f], "sub-") == TRUE ) {
+    # copy from google folder
+    google_OSF_sub_path = paste(google_exp1_dir, participants_exp1_list[f], sep = "/")
+    OSF_sub_path = paste(git_OSF_exp1_dir, participants_exp1_list[f], sep = "/")
+    
+    ## create sub folder if doesn't exist
+    if (!dir.exists(OSF_sub_path)) {
+      dir.create(OSF_sub_path)
+    }
+    
+    csv_files <- list.files(path = google_OSF_sub_path, 
+                       pattern = "\\.csv$", 
+                       full.names = TRUE)
+    file.copy(from = csv_files, 
+         to = OSF_sub_path, 
+         overwrite = FALSE)
+
+    OSF_sub_path = paste(git_OSF_exp1_dir, participants_exp1_list[f], sep = "/")
+    
+    # list all .csv files
+    csv_files <- list.files(path = OSF_sub_path, pattern = "\\.csv$", full.names = TRUE)
+    # convert all .csv to .tsv
+    lapply(csv_files, convert_csv_to_tsv_fun)
+    # Create new names by replacing the substrings
+    old_files = list.files(path = OSF_sub_path, pattern = "\\.tsv$")
+    new_names <- str_replace_all(old_files, old_substring, new_substring)
+    
+    # Rename the files
+    file.rename(from = file.path(OSF_sub_path, old_files), to = file.path(OSF_sub_path, new_names))
+  }
+}
+```
+
+## behavior json
+### load meta info
+```{r}
+# directory
+meta_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/data"
+
+# from the main spreadsheet
+main_behavior_spreadsheet = read_excel(paste(meta_dir, "BehaviorMeta_Exp1.xlsx", sep = "/"))
+
+# directly from session project RedCap
+behavior_dictionary = read_excel(paste(meta_dir, "BehaviorDict_Exp1.xlsx", sep = "/"))
+
+# from the scoring spreadsheet
+task_dictionary = read_excel(paste(meta_dir,"BehaviorTaskMap_Exp1.xlsx", sep = "/"))
+```
+
+### risk task
+```{r}
+task_name = "risk"
+for (f in 1:length(participants_exp1_list)) {
+  # f = 2
+  file_name = paste(participants_exp1_list[f], "task-risk", "beh.tsv", sep = "_")
+  file_path = paste(git_OSF_exp1_dir, participants_exp1_list[f], file_name, sep = "/")
+  if (file.exists(file_path)) {
+    OSF_sub_path_partial = paste(git_OSF_exp1_dir, participants_exp1_list[f], participants_exp1_list[f], sep = "/")
+    BIDS_pheno = BIDS_behavior_df_fun2(task_name, main_behavior_spreadsheet,
+                                       behavior_dictionary, 
+                                       task_dictionary, OSF_sub_path_partial)
+  } else {
+    print(paste(file_name, "doesn't exist.", sep = " "))
+  }
+}
+```
+
+### ambiguity task
+```{r}
+task_name = "ambiguity"
+for (f in 1:length(participants_exp1_list)) {
+  # f = 2
+  file_name = paste(participants_exp1_list[f], "task-ambiguity", "beh.tsv", sep = "_")
+  file_path = paste(git_OSF_exp1_dir, participants_exp1_list[f], file_name, sep = "/")
+  if (file.exists(file_path)) {
+    OSF_sub_path_partial = paste(git_OSF_exp1_dir, participants_exp1_list[f], participants_exp1_list[f], sep = "/")
+    BIDS_pheno = BIDS_behavior_df_fun2(task_name, main_behavior_spreadsheet,
+                                       behavior_dictionary, 
+                                       task_dictionary, OSF_sub_path_partial)
+  } else {
+    print(paste(file_name, "doesn't exist.", sep = " "))
+  }
+}
+```
+
+## create beh folder for each sub following BIDS
+```{r}
+beh_folder = "beh"
+
+for (f in 1:length(participants_exp1_list)) {
+  # f = 2
+  if (startsWith(participants_exp1_list[f], "sub-") == TRUE) {
+    sub_f_path <- paste(git_OSF_exp1_dir, participants_exp1_list[f],sep = "/")
+    beh_folder_path <- file.path(sub_f_path, beh_folder)
+    dir_create(beh_folder_path)
+    # List all files in current sub folder
+    all_files <- dir_ls(sub_f_path, type = "file")
+    if (length(all_files)==0) {
+      print(paste("no files in ", sub_f_path, sep = ""))
+    } else {
+      # Move all files to the new subfolder
+      for (file in all_files) {
+        file_move(file, beh_folder_path)
+      }
+    }
+  }
+}
+```
+
