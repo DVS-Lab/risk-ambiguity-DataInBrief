@@ -88,7 +88,7 @@ items_BIDS_keep.env <- new.env()
 # questionnaire info files
 ```{r}
 # directory
-questionnaire_info_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity/data"
+questionnaire_info_dir = "/Users/Momocco/Documents/GitHub/risk-ambiguity-DataInBrief/data_dictionary"
 
 # from the main spreadsheet
 main_survey_spreadsheet = read_excel(paste(questionnaire_info_dir, "ScaleMeta_Exp2.xlsx", sep = "/"))
