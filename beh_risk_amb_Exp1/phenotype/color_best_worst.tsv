@@ -1,5 +1,6 @@
 participant_id	best_lot	worst_lot
 sub-1001	red	green
+sub-1003	NA	NA
 sub-1007	green	red
 sub-1009	blue	red
 sub-1010	red	blue
@@ -13,9 +14,14 @@ sub-1021	blue	red
 sub-1240	green	red
 sub-1242	blue	green
 sub-1243	green	blue
+sub-1244	NA	NA
 sub-1245	blue	red
+sub-1247	NA	NA
 sub-1248	red	blue
+sub-1249	NA	NA
+sub-1251	NA	NA
 sub-1253	red	blue
+sub-1276	NA	NA
 sub-1282	green	red
 sub-1286	red	green
 sub-1294	red	blue
@@ -36,5 +42,6 @@ sub-3170	blue	green
 sub-3173	red	blue
 sub-3175	blue	red
 sub-3176	red	blue
+sub-3189	NA	NA
 sub-3190	blue	red
 sub-3200	red	blue

@@ -189,22 +189,28 @@ color_best_worst_df =
 
 mem_sub_list = intersect(color_best_worst_df$participant_id, exp1_sub_list$participant_id)
 
-color_best_worst_df = color_best_worst_df[color_best_worst_df$participant_id %in% mem_sub_list, ]
+color_best_worst_df = merge(exp1_sub_list, color_best_worst_df, by.x = TRUE, all.x = TRUE)
+# color_best_worst_df = color_best_worst_df[color_best_worst_df$participant_id %in% mem_sub_list, ]
 write_tsv(color_best_worst_df, paste(phenotype_exp1_dir, "color_best_worst.tsv", sep = "/"))
 
-red_win_count_df = red_win_count_df[red_win_count_df$participant_id %in% mem_sub_list, ]
+red_win_count_df = merge(exp1_sub_list, red_win_count_df, by.x = TRUE, all.x = TRUE)
+# red_win_count_df = red_win_count_df[red_win_count_df$participant_id %in% mem_sub_list, ]
 write_tsv(red_win_count_df, paste(phenotype_exp1_dir, "red_win_count.tsv", sep = "/"))
 
-green_win_count_df = green_win_count_df[green_win_count_df$participant_id %in% mem_sub_list, ]
+green_win_count_df = merge(exp1_sub_list, green_win_count_df, by.x = TRUE, all.x = TRUE)
+# green_win_count_df = green_win_count_df[green_win_count_df$participant_id %in% mem_sub_list, ]
 write_tsv(green_win_count_df, paste(phenotype_exp1_dir, "green_win_count.tsv", sep = "/"))
 
-blue_win_count_df = blue_win_count_df[blue_win_count_df$participant_id %in% mem_sub_list, ]
+blue_win_count_df = merge(exp1_sub_list, blue_win_count_df, by.x = TRUE, all.x = TRUE)
+# blue_win_count_df = blue_win_count_df[blue_win_count_df$participant_id %in% mem_sub_list, ]
 write_tsv(blue_win_count_df, paste(phenotype_exp1_dir, "blue_win_count.tsv", sep = "/"))
 
-accept_percentage_count_df = accept_percentage_count_df[accept_percentage_count_df$participant_id %in% mem_sub_list, ]
+accept_percentage_count_df = merge(exp1_sub_list, accept_percentage_count_df, by.x = TRUE, all.x = TRUE)
+# accept_percentage_count_df = accept_percentage_count_df[accept_percentage_count_df$participant_id %in% mem_sub_list, ]
 write_tsv(accept_percentage_count_df, paste(phenotype_exp1_dir, "accept_percentage_count.tsv", sep = "/"))
 
-yellow_seen_count_df = yellow_seen_count_df[yellow_seen_count_df$participant_id %in% mem_sub_list, ]
+yellow_seen_count_df = merge(exp1_sub_list, yellow_seen_count_df, by.x = TRUE, all.x = TRUE)
+# yellow_seen_count_df = yellow_seen_count_df[yellow_seen_count_df$participant_id %in% mem_sub_list, ]
 write_tsv(yellow_seen_count_df, paste(phenotype_exp1_dir, "yellow_seen_count.tsv", sep = "/"))
 ```
 
