@@ -1,0 +1,434 @@
+---
+title: "questionnaire reliability coefficient"
+author: "Jen Yang"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    hightlight: zenburn
+    toc_depth: 6
+---
+
+```{r clean, include=FALSE}
+# clean environment
+rm(list = ls())
+```
+
+```{r restart R session, include=FALSE, results='hide'}
+# .rs.restartR()
+```
+
+# Load libraries
+```{r libraries, message=FALSE, warning=TRUE, include=FALSE}
+library(car)
+library(plyr)
+library(foreign)
+library(pscl)
+library(boot)
+library(MASS)
+library(robust)
+library(sfsmisc)
+library(ggplot2)
+library(reshape2)
+library(ppcor)
+library(ggrepel)
+library(Hmisc)
+library(tidyverse)
+library(sandwich)
+library(ggpubr)
+library(interactions)
+library(knitr)
+library(twowaytests)
+library(ggfortify)
+library(interactions)
+library(broom)
+library(patchwork)
+library(robustbase)
+library(lmtest)
+library(modelr)
+library(Rmisc)
+library(cowplot)
+library(readr)
+library(PupillometryR)
+library(ggpp)
+library(estimatr)
+library(skedastic)
+library(ggpubr)
+library(lubridate)
+library(readxl)
+library(gridExtra)
+library(scales)
+library(rstudioapi)
+library(jsonlite)
+library(rjson)
+library(readr)
+library(bruceR)
+```
+
+# set directories
+```{r}
+exp2_dir = "/Users/momocco/Documents/GitHub/risk-ambiguity-DataInBrief/beh_risk_amb_Exp2"
+pheno_folder = "phenotype"
+data_dir = paste(exp2_dir, pheno_folder, sep = "/")
+```
+
+# autisum_quotient
+## data coding
+```{r}
+AQ_df_origin = read.table(file = 
+                       paste(data_dir, 
+                             'autisum_quotient.tsv', 
+                             sep = "/"), 
+                     sep = '\t', header = TRUE)
+
+# recode items
+AQ_df = AQ_df_origin
+# "0": "Strongly Disagree",
+# "1": "Disagree",
+# "2": "Neutral",
+# "3": "Agree",
+# "4": "Strongly Agree"
+
+# “Definitely agree” or “slightly agree” responses scored 1 point, on the following items: 1, 2, 4, 5, 6, 7, 9, 12, 13, 16, 18, 19, 20, 21, 22, 23, 26, 33, 35, 39, 41, 42, 43, 45, 46.
+# “Definitely disagree” or “slightly disagree” responses scored 1 point, on the following items: 3, 8, 10, 11, 14, 15, 17, 24, 25, 27, 28, 29, 30, 31, 32, 34, 36, 37, 38, 40, 44, 47, 48, 49, 50.
+disagree_items = c(3, 8, 10, 11, 14, 15, 17, 24, 25, 27, 28, 29, 30, 31, 32, 34, 36, 37, 38, 40, 44, 47, 48, 49, 50)
+
+for (i in 1:50) { # for loop start
+  # i = 1
+  item_i = sprintf("AQ%d", i)
+  if (i %in% disagree_items) {
+    AQ_df[[item_i]] = case_when(AQ_df[[item_i]] %in% c(0,1) ~ 1, # disagree = 1
+                                AQ_df[[item_i]] %in% c(2,3,4) ~ 0)
+  } else {
+    AQ_df[[item_i]] = case_when(AQ_df[[item_i]] %in% c(0,1,2) ~ 0, 
+                                AQ_df[[item_i]] %in% c(3,4) ~ 1) # agree = 1  
+  }
+} # for loop end
+```
+
+## total reliability
+```{r}
+AQ_reliability_total <- bruceR::Alpha(AQ_df, "AQ", 1:50)
+```
+## social skill
+```{r}
+social_items = c(1,11,13,15,22,36,44,45,47,48);
+AQ_reliability_social <- bruceR::Alpha(AQ_df, "AQ", social_items)
+```
+
+## attention switching
+```{r}
+attention_switching_items = c(2,4,10,16,25,32,34, 37,43,46)
+AQ_reliability_attention_switching <- bruceR::Alpha(AQ_df, "AQ", attention_switching_items)
+```
+
+## attention to detail
+```{r}
+attention_detail_items = c(5,6,9,12,19,23,28, 29,30,49)
+AQ_reliability_attention_detail <- bruceR::Alpha(AQ_df, "AQ", attention_detail_items)
+```
+
+## communication
+```{r}
+communication_items = c(7,17,18,26,27,31,33, 35,38,39)
+AQ_reliability_communication <- bruceR::Alpha(AQ_df, "AQ", communication_items)
+```
+
+## imagination
+```{r}
+imagination_items = c(3,8,14,20,21,24,40,41,42,50)
+AQ_reliability_imagination <- bruceR::Alpha(AQ_df, "AQ", imagination_items)
+```
+
+# FEVS
+## data coding
+```{r}
+FEVS_df_origin = read.table(file = 
+                       paste(data_dir, 
+                             'financial_exploitation_vulnerbility_scale.tsv', 
+                             sep = "/"), 
+                     sep = '\t', header = TRUE)
+
+# recode items
+# no reverse coding
+FEVS_df = FEVS_df_origin
+
+recode_1 = c("Not at all worried", "Satisfied", "Satisfied", "Confident", "Never",
+             "Never or rarely", "None of the time", "Never or rarely", "None of the time")
+recode_2 = c("Somewhat worried", "Neither", "Neither", "Unsure", "Sometimes",
+             "Some of the time", "Some of the time", "Sometimes", "Some of the time")
+recode_3 = c("Very Worried", "Dissatisfied", "Dissatisfied", "Not Confident", "Often",
+             "A lot of the time", "A lot of the time", "Often", "Most if the time")
+
+for (i in 1:9) { # for loop start
+  # i = 1
+  item_i = sprintf("FEVS_%d", i)
+  FEVS_df[[item_i]] = case_when(FEVS_df[[item_i]] %in% recode_1 ~ 1, # disagree = 1
+                                FEVS_df[[item_i]] %in% recode_2 ~ 2,
+                                FEVS_df[[item_i]] %in% recode_3 ~ 3)
+} # for loop end
+```
+
+## reliability
+```{r}
+FEVS_reliability_total <- bruceR::Alpha(FEVS_df, "FEVS_", 1:9)
+```
+
+# 7U7D
+```{r}
+## data coding
+SUSD_df_origin = read.table(file = 
+                       paste(data_dir, 
+                             'seven_up_seven_down.tsv', 
+                             sep = "/"), 
+                     sep = '\t', header = TRUE)
+
+# recode items
+# no reverse coding
+# Never or hardly ever = 0 points
+# Sometimes = 1 point
+# Often = 2 points
+# Very often or almost constantly = 3 points
+
+SUSD_df = SUSD_df_origin
+
+for (i in 1:14) { # for loop start
+  # i = 1
+  item_i = sprintf("SUSD%d", i)
+  SUSD_df[[item_i]] = case_when(SUSD_df[[item_i]] == "Never or hardly ever" ~ 0, 
+                                SUSD_df[[item_i]] == "Sometimes" ~ 1,
+                                SUSD_df[[item_i]] == "Often" ~ 2,
+                                SUSD_df[[item_i]] == "Very often or almost constantly" ~ 3)
+} # for loop end
+```
+
+## 7U
+```{r}
+up_itmes = c(1, 3, 5, 7, 9, 11, 13)
+SUSD_reliability_up <- bruceR::Alpha(SUSD_df, "SUSD", up_itmes)
+```
+
+## 7D
+```{r}
+down_itmes = c(2, 4, 6, 8, 10, 12, 14)
+SUSD_reliability_down <- bruceR::Alpha(SUSD_df, "SUSD", down_itmes)
+```
+
+# USIDep
+```{r}
+USIDep_df_origin = read.table(file = 
+                              paste(data_dir, 
+                                    'US_index_SES_deprivation.tsv', 
+                                    sep = "/"), 
+                            sep = '\t', header = TRUE)
+
+USIDep_df = USIDep_df_origin
+
+for (i in 1:8) { # for loop start
+  # i = 1
+  item_i = sprintf("USIDep%d", i)
+  USIDep_df[[item_i]] = case_when(USIDep_df[[item_i]] == "No" ~ 0, 
+                                USIDep_df[[item_i]] == "Yes" ~ 1)
+} # for loop end
+
+```
+
+
+
+
+# pull target subs' data
+```{r}
+# find common subs
+sub_raw_all = intersect(sub_raw_unique, sub_raw2_unique)
+
+# sub_raw_all = unique(sub_df$sub)
+n_sub = length(sub_raw_all)
+# select rows with subID in select subs
+raw_df_all = raw2_df[raw2_df$subID %in% sub_raw_all,] %>% distinct()
+nrow(raw_df_all)
+```
+
+# extract data for each sub
+```{r}
+var_BIDS_names = c("subID", "age", "sex", "sexOther", "race", "raceOther", "education", "Zip1", "Zip5", 
+                           'SFQ1','SFQ2','SFQ3','SFQ4','SFQ5','SFQ6','SFQ7',
+                           'FEVS_1','FEVS_2','FEVS_3','FEVS_4','FEVS_5','FEVS_6','FEVS_7','FEVS_8','FEVS_9',
+                           'SUSD1','SUSD2','SUSD3','SUSD4','SUSD5','SUSD6','SUSD7','SUSD8','SUSD9','SUSD10','SUSD11','SUSD12','SUSD13','SUSD14',
+                           'AADIS1','AADIS2','AADIS3','AADIS4','AADIS5','AADIS6','AADIS7','AADIS8','AADIS9','AADIS10','AADIS11','AADIS12',
+                           'AQ1','AQ2','AQ3','AQ4','AQ5','AQ6','AQ7','AQ8','AQ9','AQ10',
+                           'AQ11','AQ12','AQ13','AQ14','AQ15','AQ16','AQ17','AQ18','AQ19','AQ20',
+                           'AQ21','AQ22','AQ23','AQ24','AQ25','AQ26','AQ27','AQ28','AQ29','AQ30',
+                           'AQ31','AQ32','AQ33','AQ34','AQ35','AQ36','AQ37','AQ38','AQ39','AQ40',
+                           'AQ41','AQ42','AQ43','AQ44','AQ45','AQ46','AQ47','AQ48','AQ49','AQ50',
+                           'USIDep1','USIDep2','USIDep3','USIDep4','USIDep5','USIDep6','USIDep7','USIDep8')
+data_BIDS_df = data.frame(matrix(ncol = length(var_BIDS_names), nrow = n_sub))
+colnames(data_BIDS_df) = var_BIDS_names
+
+for (j in 1:n_sub) { # subject j
+  # j = 71
+  # print(j)
+  subID_j = sub_raw_all[j]
+  # print(subID_j)
+  # print(c(j,subID_j))
+  data_BIDS_df$subID[j] = subID_j
+  if (subID_j %in% raw_df$subID == TRUE) {
+    raw_df_j = raw_df[raw_df$subID == subID_j, ]
+    n_raw_df_j = nrow(raw_df_j)
+    
+    for (k in 1:n_raw_df_j) { # measure k of subject j
+      # k = 1
+      # print(k)
+      # split strings to find each variable name and response
+      raw_df_jk = raw_df_j[k, "response"]
+      if (is.na(raw_df_jk) == FALSE) {
+        raw_df_jk = raw_df_jk %>% str_replace_all("\\{|\\}", "") %>% str_split(",\\\"|\\\"\\:", simplify = TRUE) 
+        n_col_jk = ncol(raw_df_jk)
+        trial_index_jk = raw_df_j$trial_index[k]
+        # dealing with the special case of trial_index 949 of demographic info
+        if(sum(trial_index_jk %in% c(949,955)) != 0) {
+          raw_df_jk = raw_df_jk[1, 3:n_col_jk]
+          n_col_jk = length(raw_df_jk)
+        } else {
+          raw_df_jk = raw_df_jk[1, 1:n_col_jk]
+        }
+        
+        for (m in 1:(n_col_jk/2)) { # item m of measure k of subject j
+          # m = 1 
+          var_name_m = str_replace_all(raw_df_jk[2*m-1], "\"", "")
+          var_response_m = str_replace_all(raw_df_jk[2*m], "\\\"", "")
+          if(is_empty(var_response_m) != 1) {
+            data_BIDS_df[j,var_name_m] = var_response_m
+          }
+        }
+      }
+    }
+  } else {
+    # print(paste(j, "cannot find", subID_j, "raw data", sep = " "))
+    print(subID_j)
+  }
+}
+```
+
+# recode non-numeric responses
+```{r}
+data_BIDS_df_recode <- data_BIDS_df %>%
+  mutate(sex = recode(sex, "Male" = "1", "Female" = "2", "Other" = "3"),
+         race = recode(race, "Native American or Alaskan Native" = "1", "Asian / Pacific Islander" = "2",
+                       "Black or African American" = "3", " Hispanic" = "4", "White / Caucasian" = "5", 
+                       "Multiple ethnicity/ Other (please specify)" = "6"),
+         education = recode(education, "No schooling completed" = "1", "Some high school, no diploma" = "2", 
+                            "High school graduate, diploma or the equivalent" = "3", 
+                            "Some college credit, no degree" = "4", "Associates Degree" = "5",
+                            "Bachelor's Degree" = "7", "Master's Degree" = "7", "Doctoral Degree" = "8"),
+         SFQ1 = recode(SFQ1, "Yes" = "1", "No" = "2"),
+         SFQ4 = recode(SFQ4, "An impersonator (fake government, business, love interest, grandchild, etc)" = "1", 
+                       "Job, investment, or money making opportunity" = "2", "Phone, internet, TV service" = "3", 
+                       "Health (weight loss, other treatments)" = "4", "Online shopping" ="5", 
+                       "Sweepstakes, prize, lottery" = "6", "Auto sale or repair" = "7", 
+                       "Credit, debt, or loan" = "8", "Other not described" = "9"),
+         # across(AQ1:AQ50, ~recode(., "0"="1", "1"="2", "2"="3", "3"="4", "4"="5")),
+         across(SUSD1:SUSD14, ~recode(., "Never or hardly ever" = "1", "Sometimes" = "2", 
+                                      "Often" = "3", "Very often or almost constantly" = "4")),
+         across(FEVS_1:FEVS_9, ~recode(., "Not at all worried" = "1", "Somewhat worried" = "2", "Very Worried" = "3",
+                                       "Satisfied" = "1", "Neither" = "2", "Dissatisfied" = "3", 
+                                       "Confident" = "1", "Unsure" = "2", "Not Confident" = "3",
+                                       "Never" = "1", "Sometimes" = "2", "Often" = "3",
+                                       "None of the time" = "1", "Some of the time" = "2", "A lot of the time" = "3",
+                                       "Never or rarely" = "1", 
+                                       "Most if the time" = "3")),
+         across(AADIS1:AADIS12, ~recode(., "Never Used" = "1", "Once or Twice" = "2", 
+                                        "Several Times a Month" = "3", "Weekends Only" = "4", 
+                                        "Several Times a Week" = "5", "Daily" = "6", "Several Times Daily" = "7")),
+         across(USIDep1:USIDep8, ~recode(., "Yes" = "1", "No" = "2", "I am more than 65 years old" = "3")))
+
+write.csv(data_BIDS_df_recode, paste(data_dir, "data_Exp2_coded_all.csv", sep = "/"))
+write.csv(data_BIDS_df, paste(data_dir, "data_Exp2_NOTcoded_all.csv", sep = "/"))
+```
+
+# find participants from prolific
+```{r}
+pro1_name = "prolific_export_645429988b4933c945101127(1).csv"
+pro3_name = "prolific_export_645429988b4933c945101127(3).csv"
+
+pro1_df = read.csv(paste(google_dir, pro1_name, sep = "/"), header = TRUE) %>% 
+  mutate(subID = paste0("sub-", .$Participant.id))
+pro3_df = read.csv(paste(google_dir, pro3_name, sep = "/"), header = TRUE) %>% 
+  mutate(subID = paste0("sub-", .$Participant.id))
+
+pro1_sublist = unique(pro1_df$subID)
+pro3_sublist = unique(pro3_df$subID)
+pro_all = intersect(pro1_sublist, pro3_sublist)
+
+# check if common subs are in both lists
+sum(pro_all %in% pro1_sublist) <= length(pro1_sublist)
+sum(pro_all %in% pro3_sublist) <= length(pro3_sublist)
+sum(pro_all %in% pro1_sublist) == sum(pro_all %in% pro3_sublist)
+```
+
+# finalize participant list
+find common subs in behavior and prolific and jeff's list
+```{r}
+## filter based on behavior data and prolific info
+sub_beh_pro_common = intersect(pro_all, sub_raw_all)
+pro_common = pro1_df[pro1_df$subID %in% sub_beh_pro_common & pro1_df$Status == "APPROVED",] # # 289, prolific and events
+
+## filter based on jeff's list
+jeff_list = read.csv(paste("/Users/momocco/Documents/GitHub/risk-ambiguity/data/Exp2", "participant_list_jeff.csv", sep = "/"))
+
+final_common = intersect(pro_common$subID, jeff_list$subID)
+participant_final = final_common # 287, based on jeff's list, prolific status, and jeff's events data
+
+not_in_final <- pro_common$subID[!(pro_common$subID %in% participant_final)]
+print(not_in_final) # doesn't have bids in jeff's folder. also not in jeff's list
+## "sub-62fff3a366f10202cc095b1e" "sub-640cd020656929eeb856a443"
+```
+
+# finalize dataset
+```{r}
+data_BIDS_coded_final_df = data_BIDS_df_recode[data_BIDS_df_recode$subID %in% participant_final, ]
+write.csv(data_BIDS_coded_final_df, paste(data_dir, "data_Exp2_coded_all_final.csv", sep = "/"))
+
+data_BIDS_final_df = data_BIDS_df[data_BIDS_df$subID %in% participant_final, ]
+
+data_BIDS_final_df = data_BIDS_final_df %>% mutate(participant_id = subID)
+
+write.csv(data_BIDS_final_df, paste(data_dir, "data_Exp2_NOTcoded_all_final.csv", sep = "/"))
+```
+
+# save phenotype tsv
+```{r}
+participants_tsv = data_BIDS_final_df %>% 
+  select(participant_id, age, sex, sexOther, race, raceOther) %>% 
+    mutate(sex = case_when(sex == "Female" ~ "F",
+                         sex == "Male" ~ "M", 
+                         sex == "Other" ~ "n/a"))
+participants_tsv$sexOther = ifelse(participants_tsv$sex == "M" | participants_tsv$sex == "F", NA, participants_tsv$sexOther)
+write_tsv(participants_tsv, file = paste(OSF_dir, "participants.tsv", sep = "/"))
+
+demographics_tsv = data_BIDS_final_df %>% select(participant_id, age, sex, sexOther, race, raceOther, education, Zip1, Zip5)
+write_tsv(demographics_tsv, file = paste(OSF_dir, "phenotype","demographics.tsv", sep = "/"))
+
+AQ_tsv = data_BIDS_final_df %>% select(participant_id, AQ1:AQ50)
+write_tsv(AQ_tsv, file = paste(OSF_dir, "phenotype", "autisum_quotient.tsv", sep = "/"))
+
+FEVS_tsv = data_BIDS_final_df %>% select(participant_id, FEVS_1:FEVS_9)
+write_tsv(FEVS_tsv, file = paste(OSF_dir, "phenotype", "financial_exploitation_vulnerbility_scale.tsv", sep = "/"))
+
+USIDep_tsv = data_BIDS_final_df %>% select(participant_id, USIDep1:USIDep8)
+write_tsv(USIDep_tsv, file = paste(OSF_dir, "phenotype", "US_index_SES_deprivation.tsv", sep = "/"))
+
+SUSD_tsv = data_BIDS_final_df %>% select(participant_id, SUSD1:SUSD14)
+write_tsv(SUSD_tsv, file = paste(OSF_dir, "phenotype", "seven_up_seven_down.tsv", sep = "/"))
+
+AADIS_tsv = data_BIDS_final_df %>% select(participant_id, AADIS1:AADIS12)
+write_tsv(AADIS_tsv, file = paste(OSF_dir, "phenotype", "adolescent_alchohol_drug_involvement_scale.tsv", sep = "/"))
+
+SFQ_tsv = data_BIDS_final_df %>% select(participant_id, SFQ1:SFQ7)
+write_tsv(SFQ_tsv, file = paste(OSF_dir, "phenotype", "subjective_fraud_questionnaire.tsv", sep = "/"))
+```
+
+
+
