@@ -236,6 +236,10 @@ for (i in 1:8) { # for loop start
 
 ```
 
+## reliability
+```{r}
+USIDep_reliability_total <- bruceR::Alpha(USIDep_df, "USIDep", 1:8)
+```
 
 
 
