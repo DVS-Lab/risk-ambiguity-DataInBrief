@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15122335.svg)](https://doi.org/10.5281/zenodo.15122335)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15122334.svg)](https://doi.org/10.5281/zenodo.15122334)
 
 ## Dataset Overview
 **Dataset Name**: A Dataset of Risky and Ambiguous Decisions Using a Novel Linked Colored Lottery Task Across Two Studies 
