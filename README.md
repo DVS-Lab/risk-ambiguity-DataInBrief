@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15122335.svg)](https://doi.org/10.5281/zenodo.15122335)
+
 ## Dataset Overview
 **Dataset Name**: A Dataset of Risky and Ambiguous Decisions Using a Novel Linked Colored Lottery Task Across Two Studies 
 **Principal Investigator**: David V. Smith
